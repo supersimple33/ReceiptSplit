@@ -25,7 +25,7 @@ struct ReceiptSplitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeScreen()
         }
         .modelContainer(sharedModelContainer)
     }
