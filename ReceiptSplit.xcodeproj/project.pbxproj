@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FE3209E42E6CE60B00A214CA /* MaterialUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = FE3209E32E6CE60B00A214CA /* MaterialUIKit */; };
+		FE6B36B12E6E4FFA0090720A /* PhoneNumberKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FE6B36B02E6E4FFA0090720A /* PhoneNumberKit-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE3209E42E6CE60B00A214CA /* MaterialUIKit in Frameworks */,
+				FE6B36B12E6E4FFA0090720A /* PhoneNumberKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +133,7 @@
 			name = ReceiptSplit;
 			packageProductDependencies = (
 				FE3209E32E6CE60B00A214CA /* MaterialUIKit */,
+				FE6B36B02E6E4FFA0090720A /* PhoneNumberKit-Dynamic */,
 			);
 			productName = ReceiptSplit;
 			productReference = FE3209AB2E6CE0B800A214CA /* ReceiptSplit.app */;
@@ -216,6 +219,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				FE3209E22E6CE60B00A214CA /* XCRemoteSwiftPackageReference "MaterialUIKit" */,
+				FE6B36AF2E6E4FFA0090720A /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FE3209AC2E6CE0B800A214CA /* Products */;
@@ -594,6 +598,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		FE6B36AF2E6E4FFA0090720A /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -601,6 +613,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FE3209E22E6CE60B00A214CA /* XCRemoteSwiftPackageReference "MaterialUIKit" */;
 			productName = MaterialUIKit;
+		};
+		FE6B36B02E6E4FFA0090720A /* PhoneNumberKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FE6B36AF2E6E4FFA0090720A /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = "PhoneNumberKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
