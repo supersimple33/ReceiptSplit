@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import MaterialUIKit
 
 @main
 struct ReceiptSplitApp: App {
@@ -30,5 +31,9 @@ struct ReceiptSplitApp: App {
             HomeScreen()
         }
         .modelContainer(sharedModelContainer)
+    }
+
+    init() {
+        MaterialUIKit.configuration.borderWidth = 2.0
     }
 }
