@@ -12,10 +12,12 @@ import PhoneNumberKit
 @Model
 final class Participant {
     // Stored properties
+    var createdAt: Date = Date()
     var firstName: String
     var lastName: String
     var phoneNumber: String?
-    var createdAt: Date = Date()
+    var check: Check
+    var items: [Item]
 
     // Domain-specific validation error
     enum ValidationError: Error, LocalizedError, Equatable {
@@ -42,7 +44,7 @@ final class Participant {
     static let maxNameLength: Int = 50
 
     // Throwing initializer that validates and normalizes input
-    init(firstName: String, lastName: String, phoneNumberAndRegion: (String, String)?) throws {
+    init(firstName: String, lastName: String, phoneNumberAndRegion: (String, String)? = nil, check: Check) throws {
         // Validate names
         let trimmedFirst = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedFirst.isEmpty else { throw ValidationError.emptyFirstName }
@@ -56,9 +58,6 @@ final class Participant {
             throw ValidationError.nameTooLong(field: "Last name", max: Self.maxNameLength)
         }
 
-        self.firstName = trimmedFirst
-        self.lastName = trimmedLast
-
         // Validate and normalize phone if provided
         if let phoneNumberAndRegion {
             let phoneNumberUtility = PhoneNumberUtility()
@@ -68,6 +67,10 @@ final class Participant {
         } else {
             self.phoneNumber = nil
         }
+        self.firstName = trimmedFirst
+        self.lastName = trimmedLast
+        self.check = check
+        self.items = []
     }
 }
 
