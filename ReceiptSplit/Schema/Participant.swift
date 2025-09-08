@@ -61,10 +61,10 @@ final class Participant {
 
         // Validate and normalize phone if provided
         if let phoneNumberAndRegion {
-			let phoneNumberUtility = PhoneNumberUtility()
-			guard phoneNumberUtility.isValidPhoneNumber(phoneNumberAndRegion.0, withRegion: phoneNumberAndRegion.1, ignoreType: true) else {
-				throw ValidationError.invalidPhoneNumber
-			}
+            let phoneNumberUtility = PhoneNumberUtility()
+            guard phoneNumberUtility.isValidPhoneNumber(phoneNumberAndRegion.0, withRegion: phoneNumberAndRegion.1, ignoreType: true) else {
+                throw ValidationError.invalidPhoneNumber
+            }
         } else {
             self.phoneNumber = nil
         }
