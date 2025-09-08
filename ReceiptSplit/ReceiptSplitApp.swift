@@ -12,6 +12,7 @@ import SwiftData
 struct ReceiptSplitApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
+            Item.self,
             Participant.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
