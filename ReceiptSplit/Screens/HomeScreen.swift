@@ -9,8 +9,18 @@ import SwiftUI
 import SwiftData
 
 struct HomeScreen: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query var checks: [Check]
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Hello, world!")
+            Table(checks) {
+                TableColumn("Name", value: \.name)
+                TableColumn("Date", value: \.name)
+            }.tableColumnHeaders(.visible)
+            Text("Hello, world!")
+        }
     }
 }
 

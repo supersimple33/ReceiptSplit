@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Check {
+final class Check: Identifiable {
     var createdAt: Date = Date()
     var name: String
     @Relationship(deleteRule: .cascade) var participants: [Participant]
