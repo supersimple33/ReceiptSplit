@@ -34,6 +34,6 @@ struct ReceiptSplitApp: App {
     }
 
     init() {
-        MaterialUIKit.configuration.borderWidth = 2.0
+//        MaterialUIKit.configuration.borderWidth = 2.0
     }
 }

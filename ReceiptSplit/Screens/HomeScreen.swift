@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeScreen: View {
     var body: some View {
@@ -14,5 +15,6 @@ struct HomeScreen: View {
 }
 
 #Preview {
-    HomeScreen()
+    return HomeScreen()
+        .modelContainer(DataController.previewContainer)
 }
