@@ -1,0 +1,72 @@
+//
+//  ChecksTable.swift
+//  ReceiptSplit
+//
+//  Created by Addison Hanrattie on 9/6/25.
+//
+
+import SwiftUI
+import SwiftData
+import Tabler
+
+@Observable
+final class TableOptions {
+    var selectedSorting: SortingOptions = .none
+
+    var customFetchDescriptor: FetchDescriptor<Check> {
+        FetchDescriptor(sortBy: selectedSorting.sortDescriptors)
+    }
+}
+
+
+struct ChecksTable: View {
+    @Query private var checks: [Check]
+    let tableOptions: TableOptions
+
+    private typealias Context = TablerContext<Check>
+    private typealias Sort = TablerSort<Check>
+
+    init(_ tableOptions: TableOptions) {
+        self.tableOptions = tableOptions
+
+        _checks = Query(tableOptions.customFetchDescriptor)
+    }
+
+    private var gridItems: [GridItem] {
+        [GridItem(.flexible(), alignment: .leading), GridItem(.flexible(), alignment: .trailing)]
+
+    }
+
+    private func row(check: Check) -> some View {
+        LazyVGrid(columns: gridItems) {
+            Text(check.name)
+            Text(check.createdAt.description).multilineTextAlignment(.trailing)
+        }
+    }
+
+    private func header(ctx: Binding<Context>) -> some View {
+        LazyVGrid(columns: gridItems) {
+            Sort.columnTitle("Name", ctx, \.name)
+                .onTapGesture {
+                    tableOptions.selectedSorting = .name
+                }
+            Sort.columnTitle("Date", ctx, \.name)
+                .onTapGesture {
+                    tableOptions.selectedSorting = .date
+                }
+        }
+    }
+
+    private var tablerConfig: TablerStackConfig<Check> {
+        TablerStackConfig<Check>()
+    }
+
+    var body: some View {
+        TablerStack(tablerConfig, header: header, row: row, results: checks)
+    }
+}
+
+#Preview {
+    return ChecksTable(TableOptions())
+        .modelContainer(DataController.previewContainer)
+}

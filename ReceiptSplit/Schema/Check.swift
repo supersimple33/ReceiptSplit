@@ -48,3 +48,20 @@ final class Check: Identifiable {
         self.items = items
     }
 }
+
+enum SortingOptions: String, CaseIterable {
+    case name = "Name"
+    case date = "Date"
+    case none = "None"
+
+    var sortDescriptors: [SortDescriptor<Check>] {
+        switch self {
+        case .name:
+            [SortDescriptor(\Check.name, order: .reverse)]
+        case .date:
+            [SortDescriptor(\Check.createdAt)]
+        case .none:
+            []
+        }
+    }
+}
