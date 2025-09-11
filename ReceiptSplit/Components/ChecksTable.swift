@@ -38,9 +38,13 @@ struct ChecksTable: View {
     }
 
     private func row(check: Check) -> some View {
-        LazyVGrid(columns: gridItems) {
-            Text(check.name)
-            Text(check.createdAt.description).multilineTextAlignment(.trailing)
+        NavigationLink {
+            CheckDetailsScreen(check: check)
+        } label: {
+            LazyVGrid(columns: gridItems) {
+                Text(check.name)
+                Text(check.createdAt.description).multilineTextAlignment(.trailing)
+            }
         }
     }
 
