@@ -1,5 +1,5 @@
 {
-  "originHash" : "2653d3c0b6a9b28bc8d81256d97b49e5392f5bd335502c2ecabc6ec0cc47700e",
+  "originHash" : "09836b0bdc36b6eda36c50c780046a1f13219c178767aec1484a4e310111e44c",
   "pins" : [
     {
       "identity" : "materialuikit",
@@ -22,10 +22,10 @@
     {
       "identity" : "swifttabler",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/openalloc/SwiftTabler.git",
+      "location" : "https://github.com/supersimple33/SwiftTabler",
       "state" : {
-        "revision" : "863e1be58e49a68ae84184e471f400ff4d760bda",
-        "version" : "0.9.7"
+        "branch" : "swiftDataSupport",
+        "revision" : "12a73c09369f0574500d06f7f7501eace321064c"
       }
     }
   ],
