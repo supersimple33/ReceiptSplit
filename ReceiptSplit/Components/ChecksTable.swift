@@ -11,10 +11,10 @@ import Tabler
 
 @Observable
 final class TableOptions {
-    var selectedSorting: SortingOptions = .none
+    var selectedSorting: [SortDescriptor<Check>] = []
 
     var customFetchDescriptor: FetchDescriptor<Check> {
-        FetchDescriptor(sortBy: selectedSorting.sortDescriptors)
+        FetchDescriptor(sortBy: selectedSorting)
     }
 }
 
@@ -48,11 +48,11 @@ struct ChecksTable: View {
         LazyVGrid(columns: gridItems) {
             Sort.columnTitle("Name", ctx, \.name)
                 .onTapGesture {
-                    tableOptions.selectedSorting = .name
+                    tableOptions.selectedSorting = [tablerSort(ctx, \.name)]
                 }
-            Sort.columnTitle("Date", ctx, \.name)
+            Sort.columnTitle("Date", ctx, \.createdAt)
                 .onTapGesture {
-                    tableOptions.selectedSorting = .date
+                    tableOptions.selectedSorting = [tablerSort(ctx, \.createdAt)]
                 }
         }
     }
