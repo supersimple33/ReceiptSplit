@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import Tabler
+import MaterialUIKit
 
 @Observable
 final class TableOptions {
@@ -38,7 +39,7 @@ struct ChecksTable: View {
     }
 
     private func row(check: Check) -> some View {
-        NavigationLink {
+        NavigationRoute {
             CheckDetailsScreen(check: check)
         } label: {
             LazyVGrid(columns: gridItems) {

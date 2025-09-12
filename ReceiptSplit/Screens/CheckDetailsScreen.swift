@@ -7,12 +7,16 @@
 
 import SwiftUI
 import SwiftData
+import MaterialUIKit
 
 struct CheckDetailsScreen: View {
     var check: Check
 
     var body: some View {
-        Text(check.name)
+        NavigationContainer {
+            Text(check.items.count.description + " items")
+                .navigationContainerTopBar(title: check.name, backButtonHidden: false, style: .inline)
+        }
     }
 }
 
