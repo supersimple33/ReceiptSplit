@@ -10,11 +10,46 @@ import MaterialUIKit
 
 struct HomeScreen: View {
     @State private var model = TableOptions()
+    @State private var selection: Route?
+
+    // A simple route enum to drive navigation
+    fileprivate enum Route: Hashable, Identifiable {
+        case capture
+
+        var id: String {
+            switch self {
+            case .capture: return "capture"
+            }
+        }
+    }
 
     var body: some View {
         NavigationContainer {
-            ChecksTable(model)
+            VStack(spacing: MaterialUIKit.configuration.verticalStackSpacing) {
+                ChecksTable(model)
+                    .navigationContainerTopBar(title: "Receipts", backButtonHidden: true, style: .large)
+
+                ActionButton("Split New Receipt", style: .filledStretched) {
+                    selection = .capture
+                }
+            }
+            .modifier(NavigationDestinations(selection: $selection))
         }
+    }
+}
+
+// A view modifier to host navigation destinations cleanly
+private struct NavigationDestinations: ViewModifier {
+    @Binding var selection: HomeScreen.Route?
+
+    func body(content: Content) -> some View {
+        content
+            .navigationDestination(item: $selection) { route in
+                switch route {
+                case .capture:
+                    CaptureScreen()
+                }
+            }
     }
 }
 
