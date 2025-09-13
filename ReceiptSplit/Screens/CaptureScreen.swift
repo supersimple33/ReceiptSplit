@@ -12,23 +12,35 @@ import MaterialUIKit
 struct CaptureScreen: View {
     @State private var selectedItem: PhotosPickerItem?
     @State private var image: Image?
+    @StateObject private var model = CameraModel()
 
     var body: some View {
         NavigationContainer {
-            HStack {
-                PhotosPicker(
-                    selection: $selectedItem,
-                    matching: .images) {
+            VStack(spacing: MaterialUIKit.configuration.verticalStackSpacing) {
+
+                ImageView(image: model.previewImage )
+                    .background(Color.black)
+
+                HStack {
+                    PhotosPicker(
+                        selection: $selectedItem,
+                        matching: .images
+                    ) {
                         IconButton(systemImage: "photo", style: .filled) {
                             Void()
                         }.allowsHitTesting(false)
                     }
-                if let image {
-                    image
-                        .resizable()
-                        .frame(width: 200, height: 200)
+
+                    ActionButton("Capture", style: .filledStretched) {
+                        model.camera.takePhoto()
+                    }
+
+                    IconButton(systemImage: "arrow.trianglehead.2.clockwise.rotate.90.camera.fill", style: .filled) {
+                        model.camera.switchCaptureDevice()
+                    }
                 }
-            }
+            }.navigationContainerTopBar(title: "Scan A New Check / Receipt", backButtonHidden: false, style: .inline)
+
         }.onChange(of: selectedItem) { prevItem, newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
