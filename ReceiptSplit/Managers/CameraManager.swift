@@ -145,6 +145,9 @@ class CameraManager: NSObject {
         let photoOutput = AVCapturePhotoOutput()
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
 
+        // Enable high-resolution capture on the output before using high-res settings
+        photoOutput.isHighResolutionCaptureEnabled = true
+
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "VideoDataOutputQueue"))
 
@@ -295,6 +298,7 @@ class CameraManager: NSObject {
             let isFlashAvailable = self.deviceInput?.device.isFlashAvailable ?? false
             photoSettings.flashMode = isFlashAvailable ? .auto : .off
             photoSettings.isHighResolutionPhotoEnabled = true
+
             if let previewPhotoPixelFormatType = photoSettings.availablePreviewPhotoPixelFormatTypes.first {
                 photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPhotoPixelFormatType]
             }
@@ -335,3 +339,4 @@ private enum RotationAngle: CGFloat {
     case landscapeRight = 180
     case landscapeLeft = 0
 }
+
