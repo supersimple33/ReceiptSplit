@@ -20,6 +20,7 @@ struct CaptureScreen: View {
 
                 ImageView(image: model.previewImage )
                     .background(Color.black)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
 
                 HStack {
                     PhotosPicker(
@@ -49,7 +50,10 @@ struct CaptureScreen: View {
                     }
                 }
             }
+        }.task {
+            await model.camera.start()
         }
+        .environmentObject(model)
     }
 }
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MaterialUIKit
+import AVFoundation
 
 struct HomeScreen: View {
     @State private var model = TableOptions()
@@ -34,6 +35,11 @@ struct HomeScreen: View {
                 }
             }
             .modifier(NavigationDestinations(selection: $selection))
+        }.task {
+            let status = AVCaptureDevice.authorizationStatus(for: .video)
+            if status == .notDetermined {
+                await AVCaptureDevice.requestAccess(for: .video)
+            }
         }
     }
 }
