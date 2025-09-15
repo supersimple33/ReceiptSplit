@@ -12,15 +12,15 @@ class CameraModel: ObservableObject {
     let camera = CameraManager()
 
     @Published var previewImage: Image?
-    @Published var photoToken: PhotoData?
+    @Published var photo: CGImage?
 
     init() {
         Task {
             await handleCameraPreviews()
         }
         Task {
-           await handleCameraPhotos()
-       }
+            await handleCameraPhotos()
+        }
     }
 
     // MARK: - for preview camera output
@@ -42,32 +42,14 @@ class CameraModel: ObservableObject {
 
         for await photoData in unpackedPhotoStream {
             Task { @MainActor in
-                photoToken = photoData
+                photo = photoData
             }
         }
     }
 
-    private func unpackPhoto(_ photo: AVCapturePhoto) -> PhotoData? {
-        guard let imageData = photo.fileDataRepresentation() else { return nil }
-        guard let cgImage = photo.cgImageRepresentation(),
-              let metadataOrientation = photo.metadata[String(kCGImagePropertyOrientation)] as? UInt32,
-              let cgImageOrientation = CGImagePropertyOrientation(rawValue: metadataOrientation)
-        else { return nil }
-
-        let imageOrientation = UIImage.Orientation(cgImageOrientation)
-        let image = Image(uiImage: UIImage(cgImage: cgImage, scale: 1, orientation: imageOrientation))
-
-        let photoDimensions = photo.resolvedSettings.photoDimensions
-        let imageSize = (width: Int(photoDimensions.width), height: Int(photoDimensions.height))
-
-        return PhotoData(image: image, imageData: imageData, imageSize: imageSize)
+    private func unpackPhoto(_ photo: AVCapturePhoto) -> CGImage? {
+        return photo.cgImageRepresentation()
     }
-}
-
-struct PhotoData {
-    var image: Image
-    var imageData: Data
-    var imageSize: (width: Int, height: Int)
 }
 
 fileprivate extension CIImage {

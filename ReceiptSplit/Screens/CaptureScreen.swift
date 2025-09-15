@@ -8,11 +8,13 @@
 import SwiftUI
 import PhotosUI
 import MaterialUIKit
+import CoreImage
 
 struct CaptureScreen: View {
     @State private var selectedItem: PhotosPickerItem?
     @State private var image: Image?
     @StateObject private var model = CameraModel()
+    @State private var selectedCIImage: CIImage?
 
     var body: some View {
         NavigationContainer {
@@ -40,17 +42,33 @@ struct CaptureScreen: View {
                         model.camera.switchCaptureDevice()
                     }
                 }
-            }.navigationContainerTopBar(title: "Scan A New Check / Receipt", backButtonHidden: false, style: .inline)
+            }
+            .navigationContainerTopBar(title: "Scan A New Check / Receipt", backButtonHidden: false, style: .inline)
+            .navigationDestination(item: $selectedCIImage) { selectedImage in
+                CheckAnalysisScreen(image: selectedImage)
+            }
+            .navigationDestination(item: $model.photo) { photo in
+                CheckAnalysisScreen(image: CIImage(cgImage: photo))
+            }
 
-        }.onChange(of: selectedItem) { prevItem, newItem in
+        }
+        .onChange(of: selectedItem) { _, newItem in
             Task {
-                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                    if let uiImage = UIImage(data: data) {
-                        image = Image(uiImage: uiImage)
+                guard let newItem else { return }
+                // Load Data (Transferable) and convert to CIImage
+                newItem.loadTransferable(type: Data.self) { result in
+                    switch result {
+                    case .success(let data?):
+                        self.selectedCIImage = CIImage(data: data)
+                    case .success(nil):
+                        print("Error loading image")
+                    case .failure:
+                        print("Error loading image")
                     }
                 }
             }
-        }.task {
+        }
+        .task {
             await model.camera.start()
         }
         .environmentObject(model)
