@@ -10,25 +10,10 @@ import Vision
 import MaterialUIKit
 
 struct CheckAnalysisScreen: View {
-    let context = CIContext()
     let image: CIImage
+    private let context = CIContext()
 
-    // Represents the current step in the analysis pipeline.
-    private enum AnalysisPhase: Hashable {
-        case detectingText
-        case runningAIAnalysis
-        case buildingCheckItems
-
-        var displayTitle: String {
-            switch self {
-            case .detectingText: return "Detecting text"
-            case .runningAIAnalysis: return "Running AI analysis"
-            case .buildingCheckItems: return "Building check items"
-            }
-        }
-    }
-
-    @State private var currentPhase: AnalysisPhase = .detectingText
+    @StateObject private var model: CheckAnalysisModel
 
     private func convertCIImageToUIImage(_ ciImage: CIImage) -> UIImage? {
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
@@ -43,13 +28,18 @@ struct CheckAnalysisScreen: View {
 //                Separator(orientation: .vertical)
                 VStack(spacing: MaterialUIKit.configuration.verticalStackSpacing) {
                     ProgressBar(lineWidth: 5)
-                    Text(currentPhase.displayTitle)
+                    Text(model.phase.displayTitle)
                         .font(.headline)
                         .foregroundStyle(.secondary)
                 }
             }
             .navigationContainerTopBar(title: "Analyzing Receipt", backButtonHidden: false, style: .inline)
         }
+    }
+
+    init(image: CIImage) {
+        self.image = image
+        _model = StateObject(wrappedValue: CheckAnalysisModel(image))
     }
 }
 
