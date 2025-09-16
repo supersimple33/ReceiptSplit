@@ -8,12 +8,18 @@
 import Foundation
 import Vision
 import CoreImage
+import FoundationModels
+
+let INSTRUCTIONS = "Please sort this description of the check into items using the supplied guidelines"
 
 class CheckAnalysisModel: ObservableObject {
     let image: CIImage
 
     @Published var phase: AnalysisPhase = .detectingText
-    @Published var console: [String] = []
+    @Published var progress: Double = 0
+    @Published var recognizedStrings: [String] = []
+    @Published var partialCheckItems: [GeneratedItem.PartiallyGenerated] = []
+    @Published var finalCheckItems: [GeneratedItem] = []
 
     // Represents the current step in the analysis pipeline.
     enum AnalysisPhase: Hashable {
@@ -36,24 +42,39 @@ class CheckAnalysisModel: ObservableObject {
         self.image = image
     }
 
+    func generateCheckStructure(finalizedCheckItems: @escaping ([GeneratedItem]) -> Void) async throws {
+        let session = LanguageModelSession(model: .default, instructions: INSTRUCTIONS)
+        let prompt = "Here is the scanned check:\n" + self.recognizedStrings.joined(separator: "\n")
+        let stream = session.streamResponse(to: prompt, generating: [GeneratedItem].self)
+
+        for try await items in stream {
+            self.partialCheckItems = items.content
+        }
+
+        let items = try await stream.collect().content
+        finalizedCheckItems(items)
+    }
+
     private func handleVisionFinished(with request: VNRequest, error: Error?) {
-        guard let error else { return }
+        if let error {
+            // You may want to surface this error to the UI.
+            print("Vision request failed: \(error)")
+            return
+        }
         guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
-        let recognizedStrings = observations.compactMap { observation in
+        self.recognizedStrings = observations.compactMap { observation in
             // TODO: we can do some more clever stuff here
             // Return the string of the top VNRecognizedText instance.
             return observation.topCandidates(1).first?.string
         }
-        recognizedStrings
     }
 
-    func analyze() throws {
+    func analyzeForText() throws {
         let requestHandler = VNImageRequestHandler(ciImage: image)
         let request = VNRecognizeTextRequest(completionHandler: handleVisionFinished)
         request.recognitionLevel = .accurate
-        request.progressHandler = { _, progress, error in
-            guard let error else { return }
-            self.console.append("Current progress is: " + String(describing: progress))
+        request.progressHandler = { _, progress, _ in
+            self.progress = progress
         }
         try requestHandler.perform([request])
     }
