@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 
-class CameraModel: ObservableObject {
+@MainActor final class CameraModel: ObservableObject, Sendable {
     let camera = CameraManager()
 
     @Published var previewImage: Image?
@@ -38,17 +38,13 @@ class CameraModel: ObservableObject {
     // MARK: - for photo token
     func handleCameraPhotos() async {
         let unpackedPhotoStream = camera.photoStream
-            .compactMap { self.unpackPhoto($0) }
+            .compactMap { $0.cgImageRepresentation() }
 
         for await photoData in unpackedPhotoStream {
             Task { @MainActor in
                 photo = photoData
             }
         }
-    }
-
-    private func unpackPhoto(_ photo: AVCapturePhoto) -> CGImage? {
-        return photo.cgImageRepresentation()
     }
 }
 

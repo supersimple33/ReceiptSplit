@@ -5,10 +5,11 @@
 //  Created by Addison Hanrattie on 9/12/25.
 //
 
-import AVFoundation
+@unsafe @preconcurrency import AVFoundation
 import CoreImage
 
-class CameraManager: NSObject {
+// TODO: Better swift 6 update
+@MainActor class CameraManager: NSObject {
     private let captureSession = AVCaptureSession()
 
     private var isCaptureSessionConfigured = false
@@ -313,7 +314,7 @@ class CameraManager: NSObject {
     }
 }
 
-extension CameraManager: AVCapturePhotoCaptureDelegate {
+extension CameraManager: @preconcurrency AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
             print("Error capturing photo: \(error.localizedDescription)")
@@ -324,8 +325,12 @@ extension CameraManager: AVCapturePhotoCaptureDelegate {
     }
 }
 
-extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+extension CameraManager: @preconcurrency AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(
+        _ output: AVCaptureOutput,
+        didOutput sampleBuffer: CMSampleBuffer,
+        from connection: AVCaptureConnection
+    ) {
         guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
         connection.videoRotationAngle = RotationAngle.portrait.rawValue
 
