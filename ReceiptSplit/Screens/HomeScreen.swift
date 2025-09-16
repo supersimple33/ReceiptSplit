@@ -15,7 +15,7 @@ struct HomeScreen: View {
 
     var body: some View {
         NavigationContainer {
-            VStack(spacing: MaterialUIKit.configuration.verticalStackSpacing) {
+            VStack(spacing: 16) {
                 ChecksTable(model)
                     .navigationContainerTopBar(title: "Receipts", backButtonHidden: true, style: .large)
 

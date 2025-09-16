@@ -20,7 +20,7 @@ struct CaptureScreen: View {
 
     var body: some View {
         Container {
-            VStack(spacing: MaterialUIKit.configuration.verticalStackSpacing) {
+            VStack(spacing: 16) {
 
                 ImageView(image: model.previewImage )
                     .background(Color.black)
@@ -78,3 +78,4 @@ struct CaptureScreen: View {
 #Preview {
     CaptureScreen()
 }
+

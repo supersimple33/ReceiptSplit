@@ -24,11 +24,11 @@ struct CheckAnalysisScreen: View {
 
     var body: some View {
         Container {
-            HStack(spacing: MaterialUIKit.configuration.horizontalStackSpacing) {
+            HStack(spacing: 12) {
                 Image(uiImage: convertCIImageToUIImage(image)!)
                 // Progress indicator and current phase
 //                Separator(orientation: .vertical)
-                VStack(spacing: MaterialUIKit.configuration.verticalStackSpacing) {
+                VStack(spacing: 16) {
                     ProgressBar(lineWidth: 5)
                     Text(model.phase.displayTitle)
                         .font(.headline)
