@@ -23,7 +23,7 @@ struct CheckAnalysisScreen: View {
     }
 
     var body: some View {
-        NavigationContainer {
+        Container {
             HStack(spacing: MaterialUIKit.configuration.horizontalStackSpacing) {
                 Image(uiImage: convertCIImageToUIImage(image)!)
                 // Progress indicator and current phase

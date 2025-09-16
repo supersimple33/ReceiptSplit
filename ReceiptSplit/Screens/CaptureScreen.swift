@@ -11,13 +11,15 @@ import MaterialUIKit
 import CoreImage
 
 struct CaptureScreen: View {
+    @Environment(Router.self) private var router
     @State private var selectedItem: PhotosPickerItem?
     @State private var image: Image?
     @StateObject private var model = CameraModel()
-    @State private var selectedCIImage: CIImage?
+
+    // TODO: add error snackbar
 
     var body: some View {
-        NavigationContainer {
+        Container {
             VStack(spacing: MaterialUIKit.configuration.verticalStackSpacing) {
 
                 ImageView(image: model.previewImage )
@@ -44,9 +46,6 @@ struct CaptureScreen: View {
                 }
             }
             .navigationContainerTopBar(title: "Scan A New Check / Receipt", backButtonHidden: false, style: .inline)
-            .navigationDestination(item: $selectedCIImage) { selectedImage in
-                CheckAnalysisScreen(image: selectedImage)
-            }
             .navigationDestination(item: $model.photo) { photo in
                 CheckAnalysisScreen(image: CIImage(cgImage: photo))
             }
@@ -59,7 +58,8 @@ struct CaptureScreen: View {
                 newItem.loadTransferable(type: Data.self) { result in
                     switch result {
                     case .success(let data?):
-                        self.selectedCIImage = CIImage(data: data)
+                        guard let ciImage = CIImage(data: data) else { return }
+                        router.navigateTo(route: .analysis(image: ciImage))
                     case .success(nil):
                         print("Error loading image")
                     case .failure:

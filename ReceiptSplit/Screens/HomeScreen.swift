@@ -11,18 +11,7 @@ import AVFoundation
 
 struct HomeScreen: View {
     @State private var model = TableOptions()
-    @State private var selection: Route?
-
-    // A simple route enum to drive navigation
-    fileprivate enum Route: Hashable, Identifiable {
-        case capture
-
-        var id: String {
-            switch self {
-            case .capture: return "capture"
-            }
-        }
-    }
+    @Environment(Router.self) private var router
 
     var body: some View {
         NavigationContainer {
@@ -31,10 +20,9 @@ struct HomeScreen: View {
                     .navigationContainerTopBar(title: "Receipts", backButtonHidden: true, style: .large)
 
                 ActionButton("Split New Receipt", style: .filledStretched) {
-                    selection = .capture
+                    router.navigateTo(route: .capture)
                 }
             }
-            .modifier(NavigationDestinations(selection: $selection))
         }.task {
             let status = AVCaptureDevice.authorizationStatus(for: .video)
             if status == .notDetermined {
@@ -44,21 +32,6 @@ struct HomeScreen: View {
     }
 }
 
-// A view modifier to host navigation destinations cleanly
-private struct NavigationDestinations: ViewModifier {
-    @Binding var selection: HomeScreen.Route?
-
-    func body(content: Content) -> some View {
-        content
-            .navigationDestination(item: $selection) { route in
-                switch route {
-                case .capture:
-                    CaptureScreen()
-                }
-            }
-    }
-}
-
 #Preview {
-    HomeScreen().modelContainer(DataController.previewContainer)
+    return HomeScreen().modelContainer(DataController.previewContainer)
 }
