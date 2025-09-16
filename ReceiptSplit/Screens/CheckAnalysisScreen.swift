@@ -14,6 +14,8 @@ struct CheckAnalysisScreen: View {
     private let context = CIContext()
 
     @StateObject private var model: CheckAnalysisModel
+    @State private var showSnackbar = false
+    @State private var snackbarMessage: String = ""
 
     private func convertCIImageToUIImage(_ ciImage: CIImage) -> UIImage? {
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
@@ -34,7 +36,25 @@ struct CheckAnalysisScreen: View {
                 }
             }
             .navigationContainerTopBar(title: "Analyzing Receipt", backButtonHidden: false, style: .inline)
-        }
+        }.task {
+            do {
+                try model.analyzeForText()
+            } catch let err {
+                self.snackbarMessage = "Error: \(err.localizedDescription)"
+                self.showSnackbar.toggle()
+            }
+        }.task(id: model.recognizedStrings.count, {
+            guard !model.recognizedStrings.isEmpty else { return }
+            do {
+                try await model.generateCheckStructure { items in
+                    // TODO push onto navigation
+                }
+            } catch let err {
+                self.snackbarMessage = "Error: \(err.localizedDescription)"
+                self.showSnackbar.toggle()
+            }
+        })
+        .snackbar(isPresented: $showSnackbar, message: snackbarMessage)
     }
 
     init(image: CIImage) {
