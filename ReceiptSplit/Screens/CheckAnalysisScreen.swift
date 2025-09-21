@@ -35,25 +35,26 @@ struct CheckAnalysisScreen: View {
                         .foregroundStyle(.secondary)
                 }
             }
-            .navigationContainerTopBar(title: "Analyzing Receipt", backButtonHidden: false, style: .inline)
-        }.task {
-            do {
-                try model.analyzeForText()
-            } catch let err {
-                self.snackbarMessage = "Error: \(err.localizedDescription)"
-                self.showSnackbar.toggle()
-            }
-        }.task(id: model.recognizedStrings.count, {
-            guard !model.recognizedStrings.isEmpty else { return }
-            do {
-                try await model.generateCheckStructure { items in
-                    // TODO push onto navigation
-                }
-            } catch let err {
-                self.snackbarMessage = "Error: \(err.localizedDescription)"
-                self.showSnackbar.toggle()
-            }
-        })
+        }
+//        .task {
+//            do {
+//                try model.analyzeForText()
+//            } catch let err {
+//                self.snackbarMessage = "Error: \(err.localizedDescription)"
+//                self.showSnackbar.toggle()
+//            }
+//        }
+//        .task(id: model.recognizedStrings.count, {
+//            guard !model.recognizedStrings.isEmpty else { return }
+//            do {
+//                try await model.generateCheckStructure { items in
+//                    // TODO push onto navigation
+//                }
+//            } catch let err {
+//                self.snackbarMessage = "Error: \(err.localizedDescription)"
+//                self.showSnackbar.toggle()
+//            }
+//        })
         .snackbar(isPresented: $showSnackbar, message: snackbarMessage)
     }
 

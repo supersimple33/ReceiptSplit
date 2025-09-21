@@ -26,6 +26,13 @@ struct CaptureScreen: View {
                     .setResolution(.photo)
                     .setCameraHDRMode(.on)
                     .setFlashMode(.auto)
+                    .onImageCaptured { image, controller in
+                        if let ciImage = CIImage(image: image) {
+                            router.navigateTo(route: .analysis(image: ciImage))
+                        } else {
+                            // TODO: error handling
+                        }
+                    }
                     .startSession()
 //                HStack {
 //                    PhotosPicker(
@@ -46,8 +53,6 @@ struct CaptureScreen: View {
 ////                    }
 //                }
             }
-            .navigationContainerTopBar(title: "Scan A New Check / Receipt", backButtonHidden: false, style: .inline)
-
         }
         .onChange(of: selectedItem) { _, newItem in
             Task {
