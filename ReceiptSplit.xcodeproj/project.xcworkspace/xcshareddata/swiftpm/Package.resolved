@@ -1,6 +1,15 @@
 {
-  "originHash" : "b6ce4c14c18c8b767c6587c0a0d65df3db74b4b7605f0eeb26aa7942f82ce2e8",
+  "originHash" : "96fff4c359e47d85b596734049cb1b540ab46e79aa8f4655897a63d818bbd54b",
   "pins" : [
+    {
+      "identity" : "camera",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/veraposeidon/Camera.git",
+      "state" : {
+        "branch" : "fix/sendable-protocol",
+        "revision" : "1ba0a2ed7314ee03b79c86c9fcba02af8d0b04a1"
+      }
+    },
     {
       "identity" : "materialuikit",
       "kind" : "remoteSourceControl",
@@ -26,6 +35,15 @@
       "state" : {
         "branch" : "swiftDataSupport",
         "revision" : "12a73c09369f0574500d06f7f7501eace321064c"
+      }
+    },
+    {
+      "identity" : "timer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Mijick/Timer",
+      "state" : {
+        "revision" : "342371c33c3f084d82a4818447ba77d858064c85",
+        "version" : "2.0.0"
       }
     }
   ],

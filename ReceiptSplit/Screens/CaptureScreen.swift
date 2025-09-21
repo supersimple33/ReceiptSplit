@@ -8,47 +8,45 @@
 import SwiftUI
 import PhotosUI
 import MaterialUIKit
-import CoreImage
+import MijickCamera
 
 struct CaptureScreen: View {
     @Environment(Router.self) private var router
     @State private var selectedItem: PhotosPickerItem?
     @State private var image: Image?
-    @StateObject private var model = CameraModel()
 
     // TODO: add error snackbar
 
     var body: some View {
         Container {
             VStack(spacing: 16) {
-
-                ImageView(image: model.previewImage )
-                    .background(Color.black)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-
-                HStack {
-                    PhotosPicker(
-                        selection: $selectedItem,
-                        matching: .images
-                    ) {
-                        IconButton(systemImage: "photo", style: .filled) {
-                            Void()
-                        }.allowsHitTesting(false)
-                    }
-
-                    ActionButton("Capture", style: .filledStretched) {
-                        model.camera.takePhoto()
-                    }
-
-                    IconButton(systemImage: "arrow.trianglehead.2.clockwise.rotate.90.camera.fill", style: .filled) {
-                        model.camera.switchCaptureDevice()
-                    }
-                }
+                MCamera()
+                    .setAudioAvailability(false)
+                    .setCameraOutputType(.photo)
+                    .setResolution(.photo)
+                    .setCameraHDRMode(.on)
+                    .setFlashMode(.auto)
+                    .startSession()
+//                HStack {
+//                    PhotosPicker(
+//                        selection: $selectedItem,
+//                        matching: .images
+//                    ) {
+//                        IconButton(systemImage: "photo", style: .filled) {
+//                            Void()
+//                        }.allowsHitTesting(false)
+//                    }
+//
+////                    ActionButton("Capture", style: .filledStretched) {
+////                        model.camera.takePhoto()
+////                    }
+////
+////                    IconButton(systemImage: "arrow.trianglehead.2.clockwise.rotate.90.camera.fill", style: .filled) {
+////                        model.camera.switchCaptureDevice()
+////                    }
+//                }
             }
             .navigationContainerTopBar(title: "Scan A New Check / Receipt", backButtonHidden: false, style: .inline)
-            .navigationDestination(item: $model.photo) { photo in
-                CheckAnalysisScreen(image: CIImage(cgImage: photo))
-            }
 
         }
         .onChange(of: selectedItem) { _, newItem in
@@ -59,7 +57,9 @@ struct CaptureScreen: View {
                     switch result {
                     case .success(let data?):
                         guard let ciImage = CIImage(data: data) else { return }
-                        router.navigateTo(route: .analysis(image: ciImage))
+                        DispatchQueue.main.async {
+                            router.navigateTo(route: .analysis(image: ciImage))
+                        }
                     case .success(nil):
                         print("Error loading image")
                     case .failure:
@@ -68,14 +68,10 @@ struct CaptureScreen: View {
                 }
             }
         }
-        .task {
-            await model.camera.start()
-        }
-        .environmentObject(model)
     }
 }
 
 #Preview {
-    CaptureScreen()
+    CaptureScreen().environment(Router())
 }
 
