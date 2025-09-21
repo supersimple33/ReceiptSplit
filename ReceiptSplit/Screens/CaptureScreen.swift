@@ -33,6 +33,15 @@ struct CaptureScreen: View {
                             // TODO: error handling
                         }
                     }
+                    .setCameraScreen({ cameraManager, namespace, closeMCameraAction in
+                        DefaultCameraScreen(
+                            cameraManager: cameraManager,
+                            namespace: namespace,
+                            closeMCameraAction: closeMCameraAction,
+                        )
+                        .cameraOutputSwitchAllowed(false)
+                        .closeButtonAllowed(false)
+                    })
                     .startSession()
 //                HStack {
 //                    PhotosPicker(
