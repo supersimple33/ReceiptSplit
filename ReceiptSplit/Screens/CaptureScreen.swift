@@ -31,12 +31,22 @@ struct CaptureScreen: View {
                 }
             }
             .setCameraScreen({ cameraManager, namespace, closeMCameraAction in
-                DefaultCameraScreen(
+                CustomCameraScreen(
                     cameraManager: cameraManager,
                     namespace: namespace,
-                    closeMCameraAction: closeMCameraAction,
-                )
-                .cameraOutputSwitchAllowed(false)
+                    closeMCameraAction: closeMCameraAction
+                ) {
+                    PhotosPicker(selection: $selectedItem, matching: .images) {
+                        Image(systemName: "photo.on.rectangle.angled.fill")
+                            .resizable()
+                            .frame(width: 26, height: 26)
+                            .foregroundColor(.white)
+//                            .rotationEffect(rotationAngle)
+                            .frame(width: 52, height: 52)
+                            .background(.black)
+                            .mask(Circle())
+                    }
+                }
             })
             .setCloseMCameraAction {
                 router.navigationPath.removeLast()
@@ -68,4 +78,3 @@ struct CaptureScreen: View {
 #Preview {
     CaptureScreen().environment(Router())
 }
-
