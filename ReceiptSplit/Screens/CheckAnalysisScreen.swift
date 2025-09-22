@@ -103,9 +103,9 @@ struct CheckAnalysisScreen: View {
         }
     }
 
-    nonisolated private func handlePartialCheck(partialItems: [GeneratedItem.PartiallyGenerated]) {
+    nonisolated private func handlePartialCheck(partialItems: [GeneratedItem.PartiallyGenerated]) async {
         if !partialItems.isEmpty {
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.phase = .buildingCheckItems
                 // TODO: output the check status
             }

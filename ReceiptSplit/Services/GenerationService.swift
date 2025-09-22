@@ -21,7 +21,7 @@ actor GenerationService {
 
     func generateCheckStructure(
         recognizedStrings: [String],
-        onPartial: (@Sendable ([GeneratedItem.PartiallyGenerated]) -> Void)? = nil
+        onPartial: (@Sendable ([GeneratedItem.PartiallyGenerated]) async -> Void)? = nil
     ) async throws -> [GeneratedItem] {
         let session = LanguageModelSession(model: .default, instructions: INSTRUCTIONS)
         let prompt = "Here is the scanned check:\n" + recognizedStrings.joined(separator: "\n")
@@ -29,7 +29,7 @@ actor GenerationService {
 
         if let onPartial {
             for try await items in stream {
-                onPartial(items.content)
+                await onPartial(items.content)
             }
         }
 
