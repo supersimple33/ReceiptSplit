@@ -8,7 +8,11 @@
 import Foundation
 import FoundationModels
 
-let INSTRUCTIONS = "Please sort this description of the check into items using the supplied guidelines"
+let INSTRUCTIONS = """
+    Please sort this description of the check into items using the supplied guidelines.
+    Please ignore any junk descriptions such as the name of the merchant and any tax information
+    or information about coupons or surveys. Be sure to include prices formatted as integers in cents ie ($1.15=115)
+"""
 
 actor GenerationService {
     static let shared = GenerationService()

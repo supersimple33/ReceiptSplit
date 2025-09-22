@@ -12,7 +12,7 @@ import FoundationModels
 // A lightweight common interface that both persisted and generated items can share.
 protocol Purchasable: Hashable {
     var name: String { get set }
-    var price: Int { get set }
+    var price: Int { get set } // cents
 }
 
 @Model
@@ -39,6 +39,8 @@ final class Item: Purchasable {
 struct GeneratedItem: Purchasable {
     @Guide(description: "The name of the item") // TODO: add regex
     var name: String
-    @Guide(description: "The price of a quantity of this item in cents")
+    @Guide(description: "The price of a the given item total in cents", .minimum(0))
     var price: Int // cents
+    @Guide(description: "The quantity of this item bought", .minimum(0))
+    var quantity: Int
 }
