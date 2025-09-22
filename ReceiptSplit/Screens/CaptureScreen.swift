@@ -6,13 +6,11 @@
 //
 
 import SwiftUI
-import PhotosUI
 import MaterialUIKit
 import MijickCamera
 
 struct CaptureScreen: View {
     @Environment(Router.self) private var router
-    @State private var selectedItem: PhotosPickerItem?
 
     // TODO: add error snackbar
 
@@ -31,47 +29,17 @@ struct CaptureScreen: View {
                 }
             }
             .setCameraScreen({ cameraManager, namespace, closeMCameraAction in
-                CustomCameraScreen(
+                CustomCameraView(
                     cameraManager: cameraManager,
                     namespace: namespace,
                     closeMCameraAction: closeMCameraAction
-                ) {
-                    PhotosPicker(selection: $selectedItem, matching: .images) {
-                        Image(systemName: "photo.on.rectangle.angled.fill")
-                            .resizable()
-                            .frame(width: 26, height: 26)
-                            .foregroundColor(.white)
-//                            .rotationEffect(rotationAngle)
-                            .frame(width: 52, height: 52)
-                            .background(.black)
-                            .mask(Circle())
-                    }
-                }
+                )
             })
             .setCloseMCameraAction {
                 router.navigationPath.removeLast()
             }
             .startSession()
         .navigationBarBackButtonHidden(true)
-        .onChange(of: selectedItem) { _, newItem in
-            Task {
-                guard let newItem else { return }
-                // Load Data (Transferable) and convert to CIImage
-                newItem.loadTransferable(type: Data.self) { result in
-                    switch result {
-                    case .success(let data?):
-                        guard let ciImage = CIImage(data: data) else { return }
-                        DispatchQueue.main.async {
-                            router.navigateTo(route: .analysis(image: ciImage))
-                        }
-                    case .success(nil):
-                        print("Error loading image")
-                    case .failure:
-                        print("Error loading image")
-                    }
-                }
-            }
-        }
     }
 }
 
