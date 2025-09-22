@@ -6,17 +6,20 @@
 //
 
 import SwiftUI
+import MaterialUIKit
 
 struct CheckOverviewScreen: View {
     let items: [GeneratedItem]
 
     var body: some View {
-        VStack {
-            ForEach(items, id: \.name) { item in
-                HStack {
-                    Text(item.name)
-                    Spacer()
-                    Text("$\(item.price, specifier: "%.2f")")
+        Container {
+            VStack {
+                ForEach(items, id: \.name) { item in
+                    HStack {
+                        Text(item.name)
+                        Spacer()
+                        Text(Double(item.price) / 100, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    }
                 }
             }
         }
