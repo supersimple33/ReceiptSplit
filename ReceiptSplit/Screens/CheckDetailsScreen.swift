@@ -29,7 +29,7 @@ struct CheckDetailsScreen: View {
     var descriptor = FetchDescriptor<Check>()
     descriptor.fetchLimit = 1
     descriptor.sortBy = [SortDescriptor(\Check.name, order: .forward)]
-    var fetchedCheck = try! context.fetch(descriptor).first
+    let fetchedCheck = try! context.fetch(descriptor).first
 
     return CheckDetailsScreen(check: fetchedCheck!)
         .modelContainer(container)
