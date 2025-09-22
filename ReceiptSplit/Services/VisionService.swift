@@ -18,7 +18,7 @@ actor VisionService {
         image: CIImage,
         progressHandler: VNRequestProgressHandler? = nil,
         handleError: ((Error) -> Void)? = nil,
-        completion: @escaping ([String]) -> Void
+        completion: sending @escaping ([String]) -> Void
     ) throws {
         let requestHandler = VNImageRequestHandler(ciImage: image)
 

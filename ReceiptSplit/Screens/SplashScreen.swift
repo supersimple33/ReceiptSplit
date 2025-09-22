@@ -20,6 +20,8 @@ struct SplashScreen: View {
                         CaptureScreen().environment(router)
                     case .analysis(let image):
                         CheckAnalysisScreen(image: image).environment(router)
+                    case .overview(let items):
+                        CheckOverviewScreen(items: items).environment(router)
                     }
                 }
         }
