@@ -10,7 +10,7 @@ import SwiftData
 import FoundationModels
 
 // A lightweight common interface that both persisted and generated items can share.
-protocol Purchasable {
+protocol Purchasable: Hashable {
     var name: String { get set }
     var price: Int { get set }
 }

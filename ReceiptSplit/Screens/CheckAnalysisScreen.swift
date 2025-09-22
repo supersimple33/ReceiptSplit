@@ -10,6 +10,8 @@ import Vision
 import MaterialUIKit
 
 struct CheckAnalysisScreen: View {
+    @Environment(Router.self) private var router
+
     let image: CIImage
     private let context = CIContext()
 
