@@ -11,7 +11,15 @@ struct CheckOverviewScreen: View {
     let items: [GeneratedItem]
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ForEach(items, id: \.name) { item in
+                HStack {
+                    Text(item.name)
+                    Spacer()
+                    Text("$\(item.price, specifier: "%.2f")")
+                }
+            }
+        }
     }
 }
 
