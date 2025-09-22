@@ -8,10 +8,14 @@
 import Foundation
 import FoundationModels
 
-let INSTRUCTIONS = """
-    Please sort this description of the check into items using the supplied guidelines.
-    Please ignore any junk descriptions such as the name of the merchant and any tax information
-    or information about coupons or surveys. Be sure to include prices formatted as integers in cents ie ($1.15=115)
+let ITEMS_INSTRUCTIONS = """
+Please sort this description of the check into items using the supplied guidelines.
+Please ignore any junk descriptions such as the name of the merchant and any tax information
+or information about coupons or surveys. Be sure to include prices formatted as integers in cents ie ($1.15=115)
+"""
+
+let TITLE_INSTRUCTIONS = """
+Please generate a title for this check it should only be a few words long such as Five Guys Lunch or Subway Catering
 """
 
 actor GenerationService {
@@ -23,7 +27,7 @@ actor GenerationService {
         recognizedStrings: [String],
         onPartial: (@Sendable ([GeneratedItem.PartiallyGenerated]) async -> Void)? = nil
     ) async throws -> [GeneratedItem] {
-        let session = LanguageModelSession(model: .default, instructions: INSTRUCTIONS)
+        let session = LanguageModelSession(model: .default, instructions: ITEMS_INSTRUCTIONS)
         let prompt = "Here is the scanned check:\n" + recognizedStrings.joined(separator: "\n")
         let stream = session.streamResponse(to: prompt, generating: [GeneratedItem].self)
 
@@ -35,5 +39,13 @@ actor GenerationService {
 
         let finalItems = try await stream.collect().content
         return finalItems
+    }
+
+    func generateCheckTitle(
+        recognizedStrings: [String]
+    ) async throws -> String {
+        let session = LanguageModelSession(model: .default, instructions: ITEMS_INSTRUCTIONS)
+        let prompt = "Here is the scanned check:\n" + recognizedStrings.joined(separator: "\n")
+        return try await session.streamResponse(to: prompt, generating: String.self).collect().content
     }
 }

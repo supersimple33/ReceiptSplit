@@ -9,10 +9,12 @@ import SwiftUI
 import MaterialUIKit
 
 struct CheckOverviewScreen: View {
+    let title: String
     let items: [GeneratedItem]
 
     var body: some View {
         Container {
+            Text(title.capitalized)
             VStack {
                 ForEach(items, id: \.name) { item in
                     HStack {
@@ -27,5 +29,5 @@ struct CheckOverviewScreen: View {
 }
 
 #Preview {
-    CheckOverviewScreen(items: [])
+    CheckOverviewScreen(title: "Empty Check", items: [])
 }

@@ -15,7 +15,7 @@ class Router {
     enum Route: Hashable {
         case capture
         case analysis(image: CIImage)
-        case overview(items: [GeneratedItem])
+        case overview(title: String, items: [GeneratedItem])
     }
 
     func navigateTo(route: Route) {

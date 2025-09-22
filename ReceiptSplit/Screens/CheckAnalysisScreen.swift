@@ -26,13 +26,15 @@ struct CheckAnalysisScreen: View {
         case detectingText
         case runningAIAnalysis
         case buildingCheckItems
+        case namingCheck
 
         var displayTitle: String {
             switch self {
-                case .setup: return "Setting up"
-                case .detectingText: return "Detecting text"
-                case .runningAIAnalysis: return "Running AI analysis"
-                case .buildingCheckItems: return "Building check items"
+            case .setup: return "Setting up"
+            case .detectingText: return "Detecting text"
+            case .runningAIAnalysis: return "Running AI analysis"
+            case .buildingCheckItems: return "Building check items"
+            case .namingCheck: return "Naming check"
             }
         }
     }
@@ -124,7 +126,11 @@ struct CheckAnalysisScreen: View {
                 onPartial: handlePartialCheck
             )
             await MainActor.run {
-                router.navigateTo(route: .overview(items: items))
+                self.phase = phase
+            }
+            let title = try await GenerationService.shared.generateCheckTitle(recognizedStrings: recognizedStrings)
+            await MainActor.run {
+                router.navigateTo(route: .overview(title: title, items: items))
             }
         } catch let err {
             handleError(error: err)
