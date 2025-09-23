@@ -12,8 +12,8 @@ import SwiftData
 final class Check: Identifiable {
     var createdAt: Date = Date()
     var name: String
-    @Relationship(deleteRule: .cascade) var participants: [Participant]
-    @Relationship(deleteRule: .cascade) var items: [Item]
+    @Relationship(deleteRule: .cascade, inverse: \Participant.check) var participants: [Participant]
+    @Relationship(deleteRule: .cascade, inverse: \Item.check) var items: [Item]
 
     // Centralized constraints
     static let maxNameLength: Int = 50
