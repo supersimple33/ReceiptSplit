@@ -81,12 +81,14 @@ struct CheckAnalysisScreen: View {
                         DispatchQueue.main.async {
                             phase = .runningAIAnalysis
                             self.statusUpdates.append(phase.displayTitle + "...")
+                            self.statusUpdates.append("Detected \(recognizedStrings.count) lines of text")
                         }
                         Task {
                             await handleVisionFinished(recognizedStrings: recognizedStrings)
                         }
                     }
             } catch let err {
+                print(err)
                 self.snackbarMessage = "Error: \(err.localizedDescription)"
                 self.showSnackbar.toggle()
             }
@@ -96,6 +98,7 @@ struct CheckAnalysisScreen: View {
 
     nonisolated private func handleError(error: Error) {
         DispatchQueue.main.async {
+            print(error)
             self.snackbarMessage = "Error: \(error.localizedDescription)"
             self.showSnackbar.toggle()
         }
