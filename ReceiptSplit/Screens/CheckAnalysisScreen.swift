@@ -8,6 +8,7 @@
 import SwiftUI
 import Vision
 import MaterialUIKit
+import FoundationModels
 
 struct CheckAnalysisScreen: View {
     @Environment(Router.self) private var router
@@ -19,7 +20,7 @@ struct CheckAnalysisScreen: View {
     @State private var snackbarMessage: String = ""
 
     @State private var phase: AnalysisPhase = .setup
-    @State private var progress: Double = 0
+    @State private var statusUpdates: [String] = ["Initializing Analysis"]
 
     enum AnalysisPhase: Hashable {
         case setup
@@ -57,25 +58,24 @@ struct CheckAnalysisScreen: View {
 
     var body: some View {
         Container {
-            HStack(spacing: 12) {
-                Image(uiImage: convertCIImageToUIImage(image)!)
-                // Progress indicator and current phase
-//                Separator(orientation: .vertical)
-                VStack(spacing: 16) {
-                    ProgressBar(lineWidth: 5)
-                    Text(phase.displayTitle)
-                        .font(.headline)
-                        .foregroundStyle(.secondary)
-                }
+            VStack(spacing: 16) {
+                ProgressBar(lineWidth: 5)
+                Text(phase.displayTitle)
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
             }
+            Image(uiImage: convertCIImageToUIImage(image)!).resizable().aspectRatio(contentMode: .fit)
+            Text(statusUpdates.joined(separator: "\n"))
         }
         .task {
             do {
                 phase = .detectingText
+                self.statusUpdates.append(phase.displayTitle + "...")
                 try await VisionService.shared
                     .analyzeForText(image: image, progressHandler: handleProgess, handleError: handleError) { recognizedStrings in
                         DispatchQueue.main.async {
                             phase = .runningAIAnalysis
+                            self.statusUpdates.append(phase.displayTitle + "...")
                         }
                         Task {
                             await handleVisionFinished(recognizedStrings: recognizedStrings)
@@ -101,15 +101,15 @@ struct CheckAnalysisScreen: View {
             handleError(error: error)
         }
         DispatchQueue.main.async {
-            self.progress = progress
+            self.statusUpdates.append("\(Int(progress * 100))% complete processing text")
         }
     }
 
-    nonisolated private func handlePartialCheck(partialItems: [GeneratedItem.PartiallyGenerated]) async {
+    nonisolated private func handlePartialCheck(partialItems: [GeneratedItem.PartiallyGenerated], rawContent: GeneratedContent) async {
         if !partialItems.isEmpty {
             await MainActor.run {
                 self.phase = .buildingCheckItems
-                // TODO: output the check status
+                self.statusUpdates.append(rawContent.jsonString)
             }
         }
     }
@@ -126,7 +126,8 @@ struct CheckAnalysisScreen: View {
                 onPartial: handlePartialCheck
             )
             await MainActor.run {
-                self.phase = phase
+                self.phase = .namingCheck
+                self.statusUpdates.append(phase.displayTitle + "...")
             }
             let title = try await GenerationService.shared.generateCheckTitle(recognizedStrings: recognizedStrings)
             await MainActor.run {
