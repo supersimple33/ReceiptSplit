@@ -14,7 +14,7 @@ class Router {
 
     enum Route: Hashable {
         case capture
-        case analysis(image: CIImage)
+        case analysis(image: UIImage)
         case overview(title: String, items: [GeneratedItem])
     }
 

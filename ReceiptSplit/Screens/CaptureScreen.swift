@@ -22,11 +22,7 @@ struct CaptureScreen: View {
             .setCameraHDRMode(.on)
             .setFlashMode(.auto)
             .onImageCaptured { image, controller in
-                if let ciImage = CIImage(image: image) {
-                    router.navigateTo(route: .analysis(image: ciImage))
-                } else {
-                    // TODO: error handling
-                }
+                router.navigateTo(route: .analysis(image: image))
             }
             .setCameraScreen({ cameraManager, namespace, closeMCameraAction in
                 CustomCameraView(

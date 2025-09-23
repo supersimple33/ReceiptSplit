@@ -13,7 +13,7 @@ import FoundationModels
 struct CheckAnalysisScreen: View {
     @Environment(Router.self) private var router
 
-    let image: CIImage
+    let image: UIImage
     private let context = CIContext()
 
     @State private var showSnackbar = false
@@ -42,18 +42,16 @@ struct CheckAnalysisScreen: View {
 
     enum AnalysisError: LocalizedError {
         case noRecognizedText
+        case failedImageConversion
 
         var errorDescription: String? {
             switch self {
             case .noRecognizedText:
                 return "No text was detected in the image."
+            case .failedImageConversion:
+                return "Failed to convert image to a format that Vision can process."
             }
         }
-    }
-
-    private func convertCIImageToUIImage(_ ciImage: CIImage) -> UIImage? {
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
-        return UIImage(cgImage: cgImage)
     }
 
     var body: some View {
@@ -64,15 +62,22 @@ struct CheckAnalysisScreen: View {
                     .font(.headline)
                     .foregroundStyle(.secondary)
             }
-            Image(uiImage: convertCIImageToUIImage(image)!).resizable().aspectRatio(contentMode: .fit)
+            Image(uiImage: image).resizable().aspectRatio(contentMode: .fit)
             Text(statusUpdates.joined(separator: "\n"))
         }
         .task {
             do {
+                guard let ciImage = CIImage(image: image) else {
+                    handleError(error: AnalysisError.failedImageConversion)
+                    return
+                }
                 phase = .detectingText
                 self.statusUpdates.append(phase.displayTitle + "...")
                 try await VisionService.shared
-                    .analyzeForText(image: image, progressHandler: handleProgess, handleError: handleError) { recognizedStrings in
+                    .analyzeForText(image: ciImage,
+                                    progressHandler: handleProgess,
+                                    handleError: handleError
+                    ) { recognizedStrings in
                         DispatchQueue.main.async {
                             phase = .runningAIAnalysis
                             self.statusUpdates.append(phase.displayTitle + "...")
@@ -140,6 +145,6 @@ struct CheckAnalysisScreen: View {
 }
 
 #Preview {
-    CheckAnalysisScreen(image: CIImage(image: UIImage(systemName: "paintpalette")!)!).environment(Router())
+    CheckAnalysisScreen(image: UIImage(systemName: "paintpalette")!).environment(Router())
 }
 
