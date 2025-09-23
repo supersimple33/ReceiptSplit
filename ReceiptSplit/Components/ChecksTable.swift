@@ -35,7 +35,6 @@ struct ChecksTable: View {
 
     private var gridItems: [GridItem] {
         [GridItem(.flexible(), alignment: .leading), GridItem(.flexible(), alignment: .trailing)]
-
     }
 
     private func row(check: Check) -> some View {

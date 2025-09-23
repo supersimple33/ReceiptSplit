@@ -16,6 +16,7 @@ struct CheckDetailsScreen: View {
         NavigationContainer {
             Text(check.items.count.description + " items")
                 .navigationContainerTopBar(title: check.name, backButtonHidden: false, style: .inline)
+            Text(check.items.map(\.name).joined(separator: ", "))
         }
     }
 }

@@ -22,19 +22,7 @@ struct CheckOverviewScreen: View {
     var body: some View {
         Container {
             if let check {
-                Text(check.name)
-                VStack {
-                    ForEach(check.items) { item in
-                        HStack {
-                            Text(item.name)
-                            Spacer()
-                            Text(
-                                Double(item.price) / 100,
-                                format: .currency(code: Locale.current.currency?.identifier ?? "USD")
-                            )
-                        }
-                    }
-                }
+                ItemsTable(check: check)
             }
         }.task {
             do {
@@ -76,5 +64,5 @@ struct CheckOverviewScreen: View {
         GeneratedItem(name: "Salad", price: 100, quantity: 2),
         GeneratedItem(name: "Salad", price: 50, quantity: 2),
     ])
-        .modelContainer(for: [Check.self, Item.self])
+    .modelContainer(for: [Check.self, Item.self])
 }
