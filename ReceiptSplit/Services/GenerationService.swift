@@ -15,7 +15,8 @@ or information about coupons or surveys. Be sure to include prices formatted as 
 """
 
 let TITLE_INSTRUCTIONS = """
-Please generate a title for this check it should only be a few words long such as Five Guys Lunch or Subway Catering
+Please generate a title for this check it should only be a few words long such as Five Guys Lunch or Subway Catering.
+Only output the title and nothing else.
 """
 
 actor GenerationService {
@@ -44,8 +45,10 @@ actor GenerationService {
     func generateCheckTitle(
         recognizedStrings: [String]
     ) async throws -> String {
-        let session = LanguageModelSession(model: .default, instructions: ITEMS_INSTRUCTIONS)
-        let prompt = "Here is the scanned check:\n" + recognizedStrings.joined(separator: "\n")
-        return try await session.streamResponse(to: prompt, generating: String.self).collect().content
+        let session = LanguageModelSession(model: .default, instructions: TITLE_INSTRUCTIONS)
+        let prompt = "Here is the scanned check, what would be a good name for it?:\n" + recognizedStrings.joined(separator: "\n")
+        return try await session
+            .streamResponse(to: prompt, generating: String.self, includeSchemaInPrompt: false)
+            .collect().content
     }
 }
