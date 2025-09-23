@@ -21,11 +21,7 @@ struct SplashScreen: View {
                     case .analysis(let image):
                         CheckAnalysisScreen(image: image).environment(router)
                     case .overview(let title, let items):
-                        if let overview = try? CheckOverviewScreen(title: title, items: items).environment(router) {
-                            overview
-                        } else {
-                            EmptyView()
-                        }
+                        CheckOverviewScreen(title: title, items: items).environment(router)
                     }
                 }
         }

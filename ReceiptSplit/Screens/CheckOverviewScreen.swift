@@ -42,8 +42,9 @@ struct CheckOverviewScreen: View {
 
             for generatedItem in items {
                 for i in 1...generatedItem.quantity {
-                    let item = Item(name: generatedItem.name + " \(i)", price: generatedItem.price, forCheck: self.check!)
-                    modelContext.insert(item)
+                    modelContext.insert(
+                        Item(name: generatedItem.name + " \(i)", price: generatedItem.price, forCheck: self.check!)
+                    )
                 }
             }
             print(self.check!.items.count)
@@ -52,7 +53,5 @@ struct CheckOverviewScreen: View {
 }
 
 #Preview {
-    do {
-        try! CheckOverviewScreen(title: "Empty Check", items: [])
-    }
+    CheckOverviewScreen(title: "Empty Check", items: [])
 }
