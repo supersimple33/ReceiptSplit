@@ -23,6 +23,15 @@ struct CheckOverviewScreen: View {
         Container {
             if let check {
                 ItemsTable(check: check)
+                ActionButton("Add Item", style: .filledStretched) {
+                    check.items.append(
+                        Item(
+                            name: "New Item",
+                            price: 1000,
+                            forCheck: self.check!
+                        )
+                    )
+                }
             }
         }.task {
             do {
