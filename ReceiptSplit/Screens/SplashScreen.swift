@@ -22,6 +22,8 @@ struct SplashScreen: View {
                         CheckAnalysisScreen(image: image).environment(router)
                     case .overview(let title, let items):
                         CheckOverviewScreen(title: title, items: items).environment(router)
+                    case .participants(let check):
+                        IdentifyParticipantsScreen(check: check).environment(router)
                     }
                 }
         }

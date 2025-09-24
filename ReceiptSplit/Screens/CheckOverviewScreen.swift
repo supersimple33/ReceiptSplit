@@ -10,6 +10,7 @@ import MaterialUIKit
 
 struct CheckOverviewScreen: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(Router.self) private var router
 
     let title: String
     let items: [GeneratedItem]
@@ -23,7 +24,7 @@ struct CheckOverviewScreen: View {
         Container {
             if let check {
                 ItemsTable(check: check)
-                ActionButton("Add Item", style: .filledStretched) {
+                ActionButton("Add Item", style: .tonalStretched) {
                     check.items.append(
                         Item(
                             name: "New Item",
@@ -31,6 +32,9 @@ struct CheckOverviewScreen: View {
                             forCheck: self.check!
                         )
                     )
+                }
+                ActionButton("Continue", style: .filledStretched) {
+                    router.navigateTo(route: .participants(check: check))
                 }
             }
         }.task {
@@ -72,5 +76,6 @@ struct CheckOverviewScreen: View {
         GeneratedItem(name: "Salad", price: 100, quantity: 2),
         GeneratedItem(name: "Salad", price: 50, quantity: 2),
     ])
+    .environment(Router())
     .modelContainer(for: [Check.self, Item.self])
 }

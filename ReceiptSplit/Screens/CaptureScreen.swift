@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import MaterialUIKit
 import MijickCamera
 
 struct CaptureScreen: View {
