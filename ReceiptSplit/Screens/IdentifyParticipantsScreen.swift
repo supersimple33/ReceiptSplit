@@ -7,12 +7,24 @@
 
 import SwiftUI
 import SwiftData
+import MaterialUIKit
 
 struct IdentifyParticipantsScreen: View {
     let check: Check
-    
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Container {
+            ActionButton("Import from Contacts", style: .tonalStretched) {
+                print()
+            }
+            ParticipantsTable(check: check)
+            ActionButton("Manually Add", style: .tonalStretched) {
+                print()
+            }
+            ActionButton("Continue", style: check.participants.isEmpty ? .outlineStretched : .filledStretched) {
+                print()
+            }.disabled(check.participants.isEmpty)
+        }
     }
 }
 

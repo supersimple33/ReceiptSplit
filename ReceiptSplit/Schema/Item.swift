@@ -20,7 +20,7 @@ final class Item: Purchasable {
     var createdAt: Date = Date()
     var name: String
     var price: Int // cents
-    var orderer: Participant?
+    @Relationship(deleteRule: .nullify) var orderer: Participant?
     var check: Check
 
     init(name: String, price: Int, forCheck check: Check) {
