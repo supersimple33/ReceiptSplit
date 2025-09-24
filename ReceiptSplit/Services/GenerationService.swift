@@ -11,7 +11,7 @@ import FoundationModels
 let ITEMS_INSTRUCTIONS = """
 Please sort this description of the check into items using the supplied guidelines.
 Please ignore any junk descriptions such as the name of the merchant and any tax information
-or information about coupons or surveys. Be sure to include prices formatted as integers in cents ie ($1.15=115)
+or information about coupons or surveys. Be sure to include prices formatted as doubles ie ($1.15=1.15)
 """
 
 let TITLE_INSTRUCTIONS = """

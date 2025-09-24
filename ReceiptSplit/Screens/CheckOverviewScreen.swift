@@ -51,14 +51,14 @@ struct CheckOverviewScreen: View {
             for generatedItem in items {
                 if generatedItem.quantity == 1 {
                     modelContext.insert(
-                        Item(name: generatedItem.name, price: generatedItem.price, forCheck: self.check!)
+                        Item(name: generatedItem.name, price: Int(generatedItem.price * 100), forCheck: self.check!)
                     )
                 } else {
                     for i in 1...generatedItem.quantity {
                         modelContext.insert(
                             Item(
                                 name: generatedItem.name + " #\(i)/\(generatedItem.quantity)",
-                                price: generatedItem.price / generatedItem.quantity,
+                                price: Int(100.0 * generatedItem.price) / generatedItem.quantity,
                                 forCheck: self.check!
                             )
                         )
