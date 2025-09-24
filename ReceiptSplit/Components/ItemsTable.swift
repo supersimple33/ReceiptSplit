@@ -14,32 +14,38 @@ struct ItemsTable: View {
 
     @Bindable var check: Check
 
-    private var tablerConfig: TablerStackConfig<Item> {
-        TablerStackConfig<Item>()
+    private var tablerConfig: TablerListConfig<Item> {
+        TablerListConfig<Item>(onDelete: deleteRows)
     }
 
-    private var gridItems: [GridItem] {
-        [GridItem(.flexible(), alignment: .leading), GridItem(.flexible(), alignment: .trailing)]
-    }
+    private let gridItems: [GridItem] = [
+        GridItem(.flexible(), alignment: .leading),
+        GridItem(.flexible(), alignment: .trailing)
+    ]
 
     private func header(ctx: Binding<Context>) -> some View {
         LazyVGrid(columns: gridItems) {
             Text("Name")
-            Text("Date")
+            Text("Price")
         }
     }
 
     let integerFormatter = CurrencyFormatter()
 
+    private func deleteRows(offsets: IndexSet) {
+        check.items.remove(atOffsets: offsets)
+    }
+
     private func row(item: Binding<Item>) -> some View {
         LazyVGrid(columns: gridItems, alignment: .leading) {
             TextField("Item Name", text: item.name)
             TextField("Item Price", value: item.price, formatter: integerFormatter)
+                .multilineTextAlignment(.trailing)
         }
     }
 
     var body: some View {
-        TablerStackB(tablerConfig, header: header, row: row, results: $check.items)
+        TablerListB(tablerConfig, header: header, row: row, results: $check.items)
     }
 }
 

@@ -45,7 +45,7 @@ struct CheckOverviewScreen: View {
                         modelContext.insert(
                             Item(
                                 name: generatedItem.name + " #\(i)/\(generatedItem.quantity)",
-                                price: generatedItem.price,
+                                price: generatedItem.price / generatedItem.quantity,
                                 forCheck: self.check!
                             )
                         )
