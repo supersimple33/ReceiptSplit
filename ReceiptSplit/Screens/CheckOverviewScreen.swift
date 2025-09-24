@@ -24,18 +24,18 @@ struct CheckOverviewScreen: View {
         Container {
             if let check {
                 ItemsTable(check: check)
-                ActionButton("Add Item", style: .tonalStretched) {
-                    check.items.append(
-                        Item(
-                            name: "New Item",
-                            price: 1000,
-                            forCheck: self.check!
+                    .floatingActionButton(systemImage: "square.and.pencil", titleKey: "Add New Item") {
+                        check.items.append(
+                            Item(
+                                name: "New Item",
+                                price: 1000,
+                                forCheck: self.check!
+                            )
                         )
-                    )
-                }
-                ActionButton("Continue", style: .filledStretched) {
+                    }
+                ActionButton("Continue", style: check.items.isEmpty ? .outlineStretched : .filledStretched) {
                     router.navigateTo(route: .participants(check: check))
-                }
+                }.disabled(check.items.isEmpty)
             }
         }.task {
             do {
