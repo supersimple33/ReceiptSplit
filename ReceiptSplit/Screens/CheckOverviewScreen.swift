@@ -52,7 +52,6 @@ struct CheckOverviewScreen: View {
                     }
                 }
             }
-            print(self.check!.items.count)
         }
         .snackbar(isPresented: $showSnackbar, message: snackbarMessage)
     }

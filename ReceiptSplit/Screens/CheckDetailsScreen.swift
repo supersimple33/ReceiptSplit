@@ -17,6 +17,7 @@ struct CheckDetailsScreen: View {
             Text(check.items.count.description + " items")
                 .navigationContainerTopBar(title: check.name, backButtonHidden: false, style: .inline)
             Text(check.items.map(\.name).joined(separator: ", "))
+            Text(check.items.map(\.price.description).joined(separator: ", "))
         }
     }
 }

@@ -29,13 +29,12 @@ struct ItemsTable: View {
         }
     }
 
+    let integerFormatter = CurrencyFormatter()
+
     private func row(item: Binding<Item>) -> some View {
         LazyVGrid(columns: gridItems, alignment: .leading) {
             TextField("Item Name", text: item.name)
-            Text(
-                Double(item.wrappedValue.price) / 100.0,
-                format: .currency(code: Locale.current.currency?.identifier ?? "USD")
-            )
+            TextField("Item Price", value: item.price, formatter: integerFormatter)
         }
     }
 

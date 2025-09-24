@@ -15,7 +15,7 @@ struct ReceiptSplitApp: App {
         WindowGroup {
             SplashScreen()
         }
-        .modelContainer(for: [Check.self, Item.self, Participant.self], inMemory: false, isAutosaveEnabled: false)
+        .modelContainer(for: [Check.self, Item.self, Participant.self], inMemory: false, isAutosaveEnabled: true)
     }
 
     init() {
