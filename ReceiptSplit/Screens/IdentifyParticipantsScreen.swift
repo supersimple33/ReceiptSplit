@@ -8,14 +8,31 @@
 import SwiftUI
 import SwiftData
 import MaterialUIKit
+import Contacts
 
 struct IdentifyParticipantsScreen: View {
     let check: Check
 
+    @State private var showContactPicker: Bool = false
+
+    @State private var showSnackbar = false
+    @State private var snackbarMessage: String = ""
+
+    private enum IdentifyParticipantsError: LocalizedError {
+        case regionNotSet
+
+        var errorDescription: String? {
+            switch self {
+            case .regionNotSet:
+                return "No region is set for the current locale."
+            }
+        }
+    }
+
     var body: some View {
         Container {
             ActionButton("Import from Contacts", style: .tonalStretched) {
-                print()
+                self.showContactPicker = true
             }
             ParticipantsTable(check: check)
             ActionButton("Manually Add", style: .tonalStretched) {
@@ -25,6 +42,48 @@ struct IdentifyParticipantsScreen: View {
                 print()
             }.disabled(check.participants.isEmpty)
         }
+        .contactPicker(isPresented: $showContactPicker, onDismiss: nil) { (contact, contactProperty) in
+            do {
+                if let contactProperty, let phoneNumber = contactProperty.value as? CNPhoneNumber {
+                    guard let locale = Locale.current.region?.identifier else {
+                        throw IdentifyParticipantsError.regionNotSet
+                    }
+                    check.participants.append(try Participant(
+                        firstName: contact.givenName,
+                        lastName: contact.familyName,
+                        phoneNumberAndRegion: PhoneNumberAndRegion(
+                            phoneNumber: phoneNumber.stringValue,
+                            region: locale
+                        ),
+                        check: self.check
+                    ))
+                } else if let phoneNumber = contact.phoneNumbers.first?.value {
+                    guard let locale = Locale.current.region?.identifier else {
+                        throw IdentifyParticipantsError.regionNotSet
+                    }
+                    check.participants.append(try Participant(
+                        firstName: contact.givenName,
+                        lastName: contact.familyName,
+                        phoneNumberAndRegion: PhoneNumberAndRegion(
+                            phoneNumber: phoneNumber.stringValue,
+                            region: locale
+                        ),
+                        check: self.check
+                    ))
+                } else {
+                    check.participants.append(try Participant(
+                        firstName: contact.givenName,
+                        lastName: contact.familyName,
+                        check: self.check
+                    ))
+                }
+            } catch let error {
+                print(error)
+                self.showSnackbar = true
+                self.snackbarMessage = error.localizedDescription
+            }
+        }
+        .snackbar(isPresented: $showSnackbar, message: snackbarMessage)
     }
 }
 

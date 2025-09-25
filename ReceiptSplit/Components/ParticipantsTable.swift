@@ -9,6 +9,8 @@ import SwiftUI
 import Tabler
 import PhoneNumberKit
 
+fileprivate let HORIZONTAL_SPACING = CGFloat(4)
+
 struct ParticipantsTable: View {
     private typealias Context = TablerContext<Participant>
     private typealias Sort = TablerSort<Participant>
@@ -25,8 +27,8 @@ struct ParticipantsTable: View {
     ]
 
     private func header(ctx: Binding<Context>) -> some View {
-        LazyVGrid(columns: gridItems) {
-            HStack {
+        LazyVGrid(columns: gridItems, spacing: HORIZONTAL_SPACING) {
+            HStack(spacing: HORIZONTAL_SPACING) {
                 Text("First").frame(maxWidth: .infinity, alignment: .leading)
                 Text("Last").frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -41,8 +43,8 @@ struct ParticipantsTable: View {
     }
 
     private func row(participant: Binding<Participant>) -> some View {
-        LazyVGrid(columns: gridItems, alignment: .leading) {
-            HStack {
+        LazyVGrid(columns: gridItems, alignment: .leading, spacing: HORIZONTAL_SPACING) {
+            HStack(spacing: HORIZONTAL_SPACING) {
                 TextField("First Name", text: participant.firstName)
                 TextField("Last Name", text: participant.lastName)
             }
