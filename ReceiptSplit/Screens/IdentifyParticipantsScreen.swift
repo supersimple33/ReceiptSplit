@@ -45,29 +45,17 @@ struct IdentifyParticipantsScreen: View {
         .contactPicker(isPresented: $showContactPicker, onDismiss: nil) { (contact, contactProperty) in
             do {
                 if let contactProperty, let phoneNumber = contactProperty.value as? CNPhoneNumber {
-                    guard let locale = Locale.current.region?.identifier else {
-                        throw IdentifyParticipantsError.regionNotSet
-                    }
                     check.participants.append(try Participant(
                         firstName: contact.givenName,
                         lastName: contact.familyName,
-                        phoneNumberAndRegion: PhoneNumberAndRegion(
-                            phoneNumber: phoneNumber.stringValue,
-                            region: locale
-                        ),
+                        phoneNumber: phoneNumber.stringValue,
                         check: self.check
                     ))
                 } else if let phoneNumber = contact.phoneNumbers.first?.value {
-                    guard let locale = Locale.current.region?.identifier else {
-                        throw IdentifyParticipantsError.regionNotSet
-                    }
                     check.participants.append(try Participant(
                         firstName: contact.givenName,
                         lastName: contact.familyName,
-                        phoneNumberAndRegion: PhoneNumberAndRegion(
-                            phoneNumber: phoneNumber.stringValue,
-                            region: locale
-                        ),
+                        phoneNumber: phoneNumber.stringValue,
                         check: self.check
                     ))
                 } else {

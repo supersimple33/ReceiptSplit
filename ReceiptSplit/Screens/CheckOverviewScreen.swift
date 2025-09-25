@@ -37,7 +37,8 @@ struct CheckOverviewScreen: View {
                     router.navigateTo(route: .participants(check: check))
                 }.disabled(check.items.isEmpty)
             }
-        }.task {
+        }
+        .task {
             do {
                 self.check = try Check(name: title)
             } catch let error {

@@ -9,11 +9,6 @@ import Foundation
 import SwiftData
 import PhoneNumberKit
 
-struct PhoneNumberAndRegion {
-    let phoneNumber: String
-    let region: String?
-}
-
 @Model
 final class Participant {
     // Stored properties
@@ -49,7 +44,7 @@ final class Participant {
     static let maxNameLength: Int = 50
 
     // Throwing initializer that validates and normalizes input
-    init(firstName: String, lastName: String, phoneNumberAndRegion: PhoneNumberAndRegion? = nil, check: Check) throws {
+    init(firstName: String, lastName: String, phoneNumber: String? = nil, check: Check) throws {
         // Validate names
         let trimmedFirst = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedFirst.isEmpty else { throw ValidationError.emptyFirstName }
