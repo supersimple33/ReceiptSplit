@@ -11,6 +11,8 @@ import MaterialUIKit
 import Contacts
 
 struct IdentifyParticipantsScreen: View {
+    @Environment(Router.self) private var router
+
     let check: Check
 
     @State private var showContactPicker: Bool = false
@@ -47,7 +49,15 @@ struct IdentifyParticipantsScreen: View {
                 self.showParticipantBuilder = true
             }
             ActionButton("Continue", style: check.participants.isEmpty ? .outlineStretched : .filledStretched) {
-                print()
+                do {
+                    for participant in check.participants {
+                        try participant.validate()
+                    }
+                    router.navigateTo(route: .assignment(check: check))
+                } catch let error {
+                    self.showSnackbar = true
+                    self.snackbarMessage = error.localizedDescription
+                }
             }.disabled(check.participants.isEmpty)
         }
         .dialogSheet(isPresented: $showParticipantBuilder, {

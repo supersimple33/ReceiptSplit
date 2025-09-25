@@ -17,6 +17,7 @@ class Router {
         case analysis(image: UIImage)
         case overview(title: String, items: [GeneratedItem])
         case participants(check: Check)
+        case assignment(check: Check)
     }
 
     func navigateTo(route: Route) {
