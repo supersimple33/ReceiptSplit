@@ -43,29 +43,43 @@ final class Participant {
     // Centralized constraints
     static let maxNameLength: Int = 50
 
+    private static func validateName(_ name: String) throws {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { throw ValidationError.emptyFirstName }
+        guard trimmed.count <= Self.maxNameLength else {
+            throw ValidationError.nameTooLong(field: "Name", max: Self.maxNameLength)
+        }
+    }
+
+    private static func validatePhoneNumber(_ phoneNumber: String) throws {
+        let phoneNumberUtility = PhoneNumberUtility()
+        guard phoneNumberUtility
+            .isValidPhoneNumber(phoneNumber, ignoreType: true) else {
+            throw ValidationError.invalidPhoneNumber
+        }
+    }
+
+    func validate() throws {
+        if let phoneNumber {
+            try Participant.validatePhoneNumber(phoneNumber)
+        }
+        try Participant.validateName(self.firstName)
+        try Participant.validateName(self.lastName)
+    }
+
     // Throwing initializer that validates and normalizes input
     init(firstName: String, lastName: String, phoneNumber: String? = nil, check: Check) throws {
         // Validate names
         let trimmedFirst = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedFirst.isEmpty else { throw ValidationError.emptyFirstName }
-        guard trimmedFirst.count <= Self.maxNameLength else {
-            throw ValidationError.nameTooLong(field: "First name", max: Self.maxNameLength)
-        }
+        try Participant.validateName(trimmedFirst)
 
         let trimmedLast = lastName.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedLast.isEmpty else { throw ValidationError.emptyLastName }
-        guard trimmedLast.count <= Self.maxNameLength else {
-            throw ValidationError.nameTooLong(field: "Last name", max: Self.maxNameLength)
-        }
+        try Participant.validateName(trimmedLast)
 
         // Validate and normalize phone if provided
-        if let phoneNumberAndRegion {
-            let phoneNumberUtility = PhoneNumberUtility()
-            guard phoneNumberUtility
-                .isValidPhoneNumber(phoneNumberAndRegion.phoneNumber, withRegion: phoneNumberAndRegion.region ?? "", ignoreType: true) else {
-                throw ValidationError.invalidPhoneNumber
-            }
-            self.phoneNumber = phoneNumberAndRegion.phoneNumber
+        if let phoneNumber {
+            try Participant.validatePhoneNumber(phoneNumber)
+            self.phoneNumber = phoneNumber
         } else {
             self.phoneNumber = nil
         }
