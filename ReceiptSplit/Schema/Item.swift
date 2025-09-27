@@ -21,18 +21,14 @@ final class Item: Purchasable {
     var createdAt: Date = Date()
     var name: String
     var price: Int // cents
-    @Relationship(deleteRule: .nullify) var orderer: Participant?
+    @Relationship(deleteRule: .nullify) var orderers: [Participant]
     var check: Check
 
     init(name: String, price: Int, forCheck check: Check) {
         self.name = name
         self.price = price
-        self.orderer = nil
+        self.orderers = []
         self.check = check
-    }
-
-    func setOrderer(_ orderer: Participant) {
-        self.orderer = orderer
     }
 }
 

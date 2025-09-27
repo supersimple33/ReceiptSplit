@@ -17,7 +17,7 @@ final class Participant {
     var lastName: String
     var phoneNumber: String?
     var check: Check
-    @Relationship(deleteRule: .nullify, inverse: \Item.orderer) var items: [Item]
+    @Relationship(deleteRule: .nullify, inverse: \Item.orderers) var items: [Item]
 
     // Domain-specific validation error
     enum ValidationError: Error, LocalizedError, Equatable {
