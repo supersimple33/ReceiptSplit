@@ -19,7 +19,7 @@ final class Check: Identifiable {
     static let maxNameLength: Int = 50
 
     // Domain-specific validation error
-    enum ValidationError: Error, LocalizedError, Equatable {
+    private enum ValidationError: Error, LocalizedError, Equatable {
         case emptyName
         case nameTooLong(max: Int)
 

@@ -12,6 +12,8 @@ struct ItemsTable: View {
     private typealias Context = TablerContext<Item>
     private typealias Sort = TablerSort<Item>
 
+    private let currencyCode = Locale.current.currency?.identifier ?? "USD"
+
     @Bindable var check: Check
 
     private var tablerConfig: TablerListConfig<Item> {
@@ -30,8 +32,6 @@ struct ItemsTable: View {
         }
     }
 
-    let integerFormatter = CurrencyFormatter()
-
     private func deleteRows(offsets: IndexSet) {
         check.items.remove(atOffsets: offsets)
     }
@@ -39,8 +39,8 @@ struct ItemsTable: View {
     private func row(item: Binding<Item>) -> some View {
         LazyVGrid(columns: gridItems, alignment: .leading) {
             TextField("Item Name", text: item.name)
-            TextField("Item Price", value: item.price, formatter: integerFormatter)
-                .multilineTextAlignment(.trailing)
+            TextField("Item Price", value: item.price, format: .currency(code: currencyCode))
+                .multilineTextAlignment(.trailing).keyboardType(.decimalPad)
         }
     }
 

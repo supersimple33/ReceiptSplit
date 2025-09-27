@@ -37,8 +37,6 @@ struct AssignmentTable: View {
         }
     }
 
-    let integerFormatter = CurrencyFormatter()
-
     private func deleteRows(offsets: IndexSet) {
         check.items.remove(atOffsets: offsets)
     }
@@ -70,3 +68,4 @@ struct AssignmentTable: View {
         TablerStack(tablerConfig, header: header, row: row, results: check.items)
     }
 }
+

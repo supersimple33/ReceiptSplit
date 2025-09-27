@@ -11,22 +11,28 @@ import FoundationModels
 
 // A lightweight common interface that both persisted and generated items can share.
 protocol Purchasable: Hashable {
-    associatedtype Price: Numeric
     var name: String { get set }
-    var price: Price { get set }
+    var price: Decimal { get set }
 }
 
 @Model
 final class Item: Purchasable {
     var createdAt: Date = Date()
     var name: String
-    var price: Int // cents
+    var price: Decimal // cents
     @Relationship(deleteRule: .nullify) var orderers: [Participant]
     var check: Check
 
-    init(name: String, price: Int, forCheck check: Check) {
+    init(name: String, price: Decimal, forCheck check: Check) {
         self.name = name
         self.price = price
+        self.orderers = []
+        self.check = check
+    }
+
+    init(item: any Purchasable, forCheck check: Check) {
+        self.name = item.name
+        self.price = item.price
         self.orderers = []
         self.check = check
     }
@@ -37,7 +43,7 @@ struct GeneratedItem: Purchasable {
     @Guide(description: "The name of the item") // TODO: add regex
     var name: String
     @Guide(description: "The price of a the given item", .minimum(0))
-    var price: Double
+    var price: Decimal
     @Guide(description: "The quantity of this item bought", .minimum(0))
     var quantity: Int
 }
