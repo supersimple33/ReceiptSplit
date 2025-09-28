@@ -17,7 +17,10 @@ struct AssignmentTable: View {
     @Bindable var check: Check
 
     private var tablerConfig: TablerStackConfig<Item> {
-        TablerStackConfig<Item>()
+        TablerStackConfig<Item>(
+            rowPadding: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
+            headerSpacing: 0,
+        )
     }
 
     private let descriptionGridItems: [GridItem] = [
@@ -35,10 +38,52 @@ struct AssignmentTable: View {
                 InitialsIcon(participant: participant)
             }
         }
+        .padding(8)
+        .background(Rectangle()
+            .fill(
+                LinearGradient(gradient: .init(colors: [Color.gray.opacity(0.5), Color.gray.opacity(0.3)]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+            )
+            .clipShape(
+                .rect(
+                    topLeadingRadius: 5,
+                    bottomLeadingRadius: 0,
+                    bottomTrailingRadius: 0,
+                    topTrailingRadius: 5
+                )
+            )
+        ).border(width: 0.5, edges: [.bottom], color: .black)
     }
 
-    private func deleteRows(offsets: IndexSet) {
-        check.items.remove(atOffsets: offsets)
+    private func footer(ctx: Binding<Context>) -> some View {
+        LazyVGrid(columns: participantGridItems()) {
+            ForEach(self.check.participants) { participant in
+                Text(self.check.items.reduce(0) { total, item in
+                    if item.orderers.contains(participant) {
+                        return total + 1
+                    } else {
+                        return total
+                    }
+                }, format: .number)
+            }
+        }
+        .padding(8)
+        .background(Rectangle()
+            .fill(
+                LinearGradient(gradient: .init(colors: [Color.gray.opacity(0.5), Color.gray.opacity(0.3)]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+            )
+                .clipShape(
+                    .rect(
+                        topLeadingRadius: 0,
+                        bottomLeadingRadius: 5,
+                        bottomTrailingRadius: 5,
+                        topTrailingRadius: 0
+                    )
+                )
+        ).border(width: 0.5, edges: [.top], color: .black)
     }
 
     private func row(item: Item) -> some View {
@@ -64,8 +109,22 @@ struct AssignmentTable: View {
         }
     }
 
+    private func rowOverlay(item: Item) -> some View {
+        Rectangle()
+            .fill(.clear)
+            .border(width: 0.5, edges: [.top, .bottom], color: .black)
+            .border(width: 1, edges: [.leading, .trailing], color: .black)
+    }
+
     var body: some View {
-        TablerStack(tablerConfig, header: header, row: row, results: check.items)
+        TablerStack(
+            tablerConfig,
+            header: header,
+            footer: footer,
+            row: row,
+            rowOverlay: rowOverlay,
+            results: check.items
+        )
     }
 }
 
