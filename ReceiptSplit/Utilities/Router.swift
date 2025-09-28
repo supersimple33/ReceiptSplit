@@ -26,8 +26,7 @@ class Router {
     }
 
     func jumpToCheck(check: Check) {
-        navigationPath.removeLast(navigationPath.count)
-        navigationPath.append(Route.details(check: check))
+        self.navigationPath = NavigationPath([Route.details(check: check)])
     }
 
 }

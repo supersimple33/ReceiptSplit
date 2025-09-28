@@ -62,7 +62,9 @@ struct ChecksTable: View {
     }
 
     private var tablerConfig: TablerStackConfig<Check> {
-        TablerStackConfig<Check>()
+        TablerStackConfig<Check>(
+            tablePadding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0),
+        )
     }
 
     var body: some View {

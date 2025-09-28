@@ -20,6 +20,7 @@ struct AssignmentTable: View {
         TablerStackConfig<Item>(
             rowPadding: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
             headerSpacing: 0,
+            tablePadding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0),
         )
     }
 

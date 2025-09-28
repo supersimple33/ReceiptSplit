@@ -19,15 +19,17 @@ struct ItemAssignmentScreen: View {
     @State private var snackbarMessage: String = ""
 
     var body: some View {
-        AssignmentTable(check: check)
-        ActionButton("Finish Assignment") {
-            do {
-                try modelContext.save()
-            } catch let error {
-                snackbarMessage = error.localizedDescription
-                showSnackbar = true
+        Container {
+            AssignmentTable(check: check)
+            ActionButton("Finish Assignment", style: .filledStretched) {
+                do {
+                    try modelContext.save()
+                } catch let error {
+                    snackbarMessage = error.localizedDescription
+                    showSnackbar = true
+                }
+                router.jumpToCheck(check: check)
             }
-            router.jumpToCheck(check: check)
         }
     }
 }

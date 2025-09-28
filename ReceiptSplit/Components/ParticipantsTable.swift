@@ -18,7 +18,10 @@ struct ParticipantsTable: View {
     @Bindable var check: Check
 
     private var tablerConfig: TablerListConfig<Participant> {
-        TablerListConfig<Participant>(onDelete: deleteRows)
+        TablerListConfig<Participant>(
+            onDelete: deleteRows,
+            tablePadding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        )
     }
 
     private let gridItems: [GridItem] = [
