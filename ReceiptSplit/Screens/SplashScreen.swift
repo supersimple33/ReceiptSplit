@@ -26,6 +26,8 @@ struct SplashScreen: View {
                         IdentifyParticipantsScreen(check: check).environment(router)
                     case .assignment(let check):
                         ItemAssignmentScreen(check: check).environment(router)
+                    case .details(let check):
+                        CheckDetailsScreen(check: check).environment(router)
                     }
                 }
         }

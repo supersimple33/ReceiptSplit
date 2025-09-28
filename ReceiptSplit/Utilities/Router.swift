@@ -18,9 +18,16 @@ class Router {
         case overview(title: String, items: [GeneratedItem])
         case participants(check: Check)
         case assignment(check: Check)
+        case details(check: Check)
     }
 
     func navigateTo(route: Route) {
         navigationPath.append(route)
     }
+
+    func jumpToCheck(check: Check) {
+        navigationPath.removeLast(navigationPath.count)
+        navigationPath.append(Route.details(check: check))
+    }
+
 }
