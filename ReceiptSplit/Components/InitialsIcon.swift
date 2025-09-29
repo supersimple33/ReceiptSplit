@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import MaterialUIKit
 
 struct InitialsIcon: View {
     let participant: Participant
@@ -20,15 +21,19 @@ struct InitialsIcon: View {
     }
 
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(Color.accentColor.opacity(0.15))
-            Text(initials)
-                .font(.system(size: size * 0.45, weight: .semibold, design: .rounded))
-                .foregroundStyle(.materialUIAccent)
+        DropdownMenu {
+            Text(participant.firstName + " " + participant.lastName)
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(Color.accentColor.opacity(0.15))
+                Text(initials)
+                    .font(.system(size: size * 0.45, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.materialUIAccent)
+            }
+            .frame(width: size, height: size)
+            .accessibilityLabel(Text("\(participant.firstName) \(participant.lastName)"))
         }
-        .frame(width: size, height: size)
-        .accessibilityLabel(Text("\(participant.firstName) \(participant.lastName)"))
     }
 }
 
