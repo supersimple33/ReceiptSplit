@@ -24,11 +24,14 @@ struct ChecksTable: View {
     @Query private var checks: [Check]
     let tableOptions: TableOptions
 
+    let navigateToCheck: (Check) -> Void
+
     private typealias Context = TablerContext<Check>
     private typealias Sort = TablerSort<Check>
 
-    init(_ tableOptions: TableOptions) {
+    init(_ tableOptions: TableOptions, navigateToCheck: @escaping (Check) -> Void) {
         self.tableOptions = tableOptions
+        self.navigateToCheck = navigateToCheck
 
         _checks = Query(tableOptions.customFetchDescriptor)
     }
@@ -38,8 +41,8 @@ struct ChecksTable: View {
     }
 
     private func row(check: Check) -> some View {
-        NavigationRoute {
-            CheckDetailsScreen(check: check)
+        Button {
+            self.navigateToCheck(check)
         } label: {
             LazyVGrid(columns: gridItems) {
                 Text(check.name)
@@ -73,6 +76,8 @@ struct ChecksTable: View {
 }
 
 #Preview {
-    return ChecksTable(TableOptions())
+    return ChecksTable(TableOptions(), navigateToCheck: { _ in
+        print()
+    })
         .modelContainer(DataController.previewContainer)
 }

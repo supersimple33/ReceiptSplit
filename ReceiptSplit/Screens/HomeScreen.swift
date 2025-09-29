@@ -16,7 +16,9 @@ struct HomeScreen: View {
     var body: some View {
         NavigationContainer {
             VStack(spacing: 16) {
-                ChecksTable(model)
+                ChecksTable(model, navigateToCheck: { check in
+                    router.navigateTo(route: .details(check: check))
+                })
                     .navigationContainerTopBar(title: "Receipts", backButtonHidden: true, style: .large)
 
                 ActionButton("Split New Receipt", style: .filledStretched) {
