@@ -14,10 +14,9 @@ struct CheckDetailsScreen: View {
 
     var body: some View {
         Container {
-            Text(check.items.count.description + " items")
-                .navigationContainerTopBar(title: check.name, backButtonHidden: false, style: .inline)
-            Text(check.items.map(\.name).joined(separator: ", "))
-            Text(check.items.map(\.price.description).joined(separator: ", "))
+            TotalsTable(check: check, handlePayout: { participant in
+                print()
+            })
         }
     }
 }
