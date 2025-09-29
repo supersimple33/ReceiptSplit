@@ -45,6 +45,7 @@ struct CheckOverviewScreen: View {
                 print(error)
                 self.snackbarMessage = error.localizedDescription
                 self.showSnackbar = true
+                return // TODO: this should push to a chat screen
             }
 
             modelContext.insert(self.check!)

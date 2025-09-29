@@ -7,10 +7,16 @@
 
 import SwiftUI
 import MaterialUIKit
+import PhoneNumberKit
 
 struct ParticipantOverview: View {
+    @Environment(\.openURL) private var openURL
+
     let participant: Participant?
     let dismiss: () -> Void
+
+    @State private var showSnackbar = false
+    @State private var snackbarMessage: String = ""
 
     private var buyDescription: String {
         if let participant {
@@ -24,9 +30,29 @@ struct ParticipantOverview: View {
         }
     }
 
+    private var venmoLink: URL? {
+        guard let participant, let phoneNumber = participant.phoneNumber else {
+            return nil
+        }
+        let totalCost = participant.getTotalCost()
+        guard totalCost.isNormal && totalCost >= 0 else {
+            return nil
+        }
+        let phoneNumberUtility = PhoneNumberUtility()
+        do {
+            let formattedPhone = try phoneNumberUtility.parse(phoneNumber, ignoreType: true).adjustedNationalNumber()
+            return URL(string: "venmo://paycharge?txn=request&recipients=\(formattedPhone)&note=ReceiptSplitBill&amount=\(totalCost)")
+        } catch let error {
+            snackbarMessage = error.localizedDescription
+            showSnackbar = true
+            return nil
+        }
+    }
+
     var body: some View {
-        if let participant {
-            VStack(spacing: 8.0) {
+        VStack(spacing: 8.0) {
+            if let participant {
+
                 Text(self.buyDescription)
                 Text("Items Included: ")
                 ScrollView(.horizontal) {
@@ -40,16 +66,27 @@ struct ParticipantOverview: View {
                     participant.payed.toggle()
                     self.dismiss()
                 }
-                if !participant.payed, let phoneNumber = participant.phoneNumber {
+                if !participant.payed, participant.phoneNumber != nil {
                     ActionButton("Request with Venmo", style: .filledStretched) {
-                        participant.payed.toggle()
-                        self.dismiss()
-                        print("HII")
+                        guard let venmoLink else {
+                            snackbarMessage = "Could not create venmo url"
+                            showSnackbar = true
+                            return
+                        }
+                        openURL(venmoLink) { accepted in
+                            if accepted {
+                                participant.payed.toggle()
+                                self.dismiss()
+                            } else {
+                                self.snackbarMessage = "Venmo URL was not accepted"
+                                self.showSnackbar = true
+                            }
+                        }
                     }
                 }
+            } else {
+                Text("Error: No Participant")
             }
-        } else {
-            Text("Error: No Participant")
-        }
+        }.snackbar(isPresented: $showSnackbar, message: snackbarMessage)
     }
 }
