@@ -17,6 +17,7 @@ final class Participant {
     var lastName: String
     var phoneNumber: String?
     var check: Check
+    var payed: Bool
     @Relationship(deleteRule: .nullify, inverse: \Item.orderers) var items: [Item]
 
     // Domain-specific validation error
@@ -87,6 +88,7 @@ final class Participant {
         self.lastName = trimmedLast
         self.check = check
         self.items = []
+        self.payed = false
     }
 }
 
