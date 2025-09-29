@@ -90,5 +90,9 @@ final class Participant {
         self.items = []
         self.payed = false
     }
+
+    func getTotalCost() -> Decimal {
+        return self.items.reduce(0) { $0 + $1.price }
+    }
 }
 

@@ -40,32 +40,16 @@ struct TotalsTable: View {
         }
     }
 
-    private func getItemCount(for participant: Participant) -> Int {
-        self.check.items.reduce(0) { total, item in
-            if item.orderers.contains(participant) {
-                return total + 1
-            } else {
-                return total
-            }
-        }
-    }
-    private func getTotal(for participant: Participant) -> Decimal {
-        self.check.items.reduce(0) { total, item in
-            if item.orderers.contains(participant) {
-                return total + (item.price / Decimal(item.orderers.count))
-            } else {
-                return total
-            }
-        }
-    }
-
     private func row(participant: Participant) -> some View {
         LazyVGrid(columns: gridItems) {
             InitialsIcon(participant: participant)
-            Text(getItemCount(for: participant), format: .number)
-            Text(getTotal(for: participant), format: .currency(code: currencyCode))
-            ActionButton(participant.payed ? "Subtotal" : "Payout", style: participant.payed ? .elevated : .filled) {
-                print()
+            Text(participant.items.count, format: .number)
+            Text(participant.getTotalCost(), format: .currency(code: currencyCode))
+            ActionButton(
+                participant.payed ? "Subtotal" : "Payout",
+                style: participant.payed ? .elevatedStretched : .filledStretched
+            ) {
+                handlePayout(participant)
             }
         }
     }
