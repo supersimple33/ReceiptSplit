@@ -9,6 +9,11 @@ import SwiftUI
 import SwiftData
 import MaterialUIKit
 
+fileprivate let AUTO_LOCALE = Locale.autoupdatingCurrent
+func getCurrencyCode() -> String {
+    return AUTO_LOCALE.currency?.identifier ?? "USD"
+}
+
 @main
 struct ReceiptSplitApp: App {
     var body: some Scene {

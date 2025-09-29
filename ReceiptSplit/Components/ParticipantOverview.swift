@@ -12,11 +12,9 @@ struct ParticipantOverview: View {
     let participant: Participant?
     let dismiss: () -> Void
 
-    private let currencyCode = Locale.current.currency?.identifier ?? "USD"
-
     private var buyDescription: String {
         if let participant {
-            let cost: String = participant.getTotalCost().formatted(.currency(code: currencyCode))
+            let cost: String = participant.getTotalCost().formatted(.currency(code: getCurrencyCode()))
             let itemCount: String = participant.items.count.formatted(.number)
             let name: String = participant.firstName + " " + participant.lastName
             return name + " bought " + itemCount + " item" + (itemCount.count == 1 ? "" : "s")

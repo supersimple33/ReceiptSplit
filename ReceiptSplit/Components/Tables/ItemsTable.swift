@@ -12,8 +12,6 @@ struct ItemsTable: View {
     private typealias Context = TablerContext<Item>
     private typealias Sort = TablerSort<Item>
 
-    private let currencyCode = Locale.current.currency?.identifier ?? "USD"
-
     @Bindable var check: Check
 
     private var tablerConfig: TablerListConfig<Item> {
@@ -42,7 +40,7 @@ struct ItemsTable: View {
     private func row(item: Binding<Item>) -> some View {
         LazyVGrid(columns: gridItems, alignment: .leading) {
             TextField("Item Name", text: item.name)
-            TextField("Item Price", value: item.price, format: .currency(code: currencyCode))
+            TextField("Item Price", value: item.price, format: .currency(code: getCurrencyCode()))
                 .multilineTextAlignment(.trailing).keyboardType(.decimalPad)
         }
     }

@@ -12,7 +12,6 @@ import MaterialUIKit
 struct AssignmentTable: View {
     private typealias Context = TablerContext<Item>
     private typealias Sort = TablerSort<Item>
-    private let systemCurrencyCode = Locale.current.currency?.identifier ?? "USD"
 
     @Bindable var check: Check
 
@@ -91,7 +90,7 @@ struct AssignmentTable: View {
         VStack {
             LazyVGrid(columns: descriptionGridItems, alignment: .leading) {
                 Text(item.name).lineLimit(1)
-                Text(item.price, format: .currency(code: systemCurrencyCode))
+                Text(item.price, format: .currency(code: getCurrencyCode()))
                     .lineLimit(1)
             }
             LazyVGrid(columns: participantGridItems(), alignment: .center) {

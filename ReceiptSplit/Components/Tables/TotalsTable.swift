@@ -13,8 +13,6 @@ struct TotalsTable: View {
     private typealias Context = TablerContext<Participant>
     private typealias Sort = TablerSort<Participant>
 
-    private let currencyCode = Locale.current.currency?.identifier ?? "USD"
-
     @Bindable var check: Check
     let handlePayout: (Participant) -> Void
 
@@ -44,7 +42,7 @@ struct TotalsTable: View {
         LazyVGrid(columns: gridItems) {
             InitialsIcon(participant: participant)
             Text(participant.items.count, format: .number)
-            Text(participant.getTotalCost(), format: .currency(code: currencyCode))
+            Text(participant.getTotalCost(), format: .currency(code: getCurrencyCode()))
             ActionButton(
                 participant.payed ? "Subtotal" : "Payout",
                 style: participant.payed ? .elevatedStretched : .filledStretched
