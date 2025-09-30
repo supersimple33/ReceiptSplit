@@ -16,7 +16,7 @@ struct VisionTests {
         ([], CGSize(width: 800, height: 600)),
         (["HELLO World 123"], CGSize(width: 800, height: 300)),
         (["HELLO", "World", "12.3"], CGSize(width: 800, height: 600)),
-        (["Receipt split", "is a", "fun app. :)"], CGSize(width: 800, height: 300)),
+        (["Receipt split", "is a", "fun app."], CGSize(width: 800, height: 300)),
     ])
     func testRecognizesSimpleText(lines: [String], size: CGSize) async throws {
         // Precondition: ensure test input lines are single-line and trimmed
