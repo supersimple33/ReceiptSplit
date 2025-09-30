@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-@testable import MijickCamera // TODO: raise a PR so testable isn't needed
+import MijickCamera // TODO: raise a PR so testable isn't needed
 import PhotosUI
 
 struct CustomCameraView: MCameraScreen {

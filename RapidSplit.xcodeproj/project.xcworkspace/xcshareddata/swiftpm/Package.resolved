@@ -1,13 +1,13 @@
 {
-  "originHash" : "96fff4c359e47d85b596734049cb1b540ab46e79aa8f4655897a63d818bbd54b",
+  "originHash" : "1af5ba98694142f5330a904a1a6ff4b9cd7d43958f98bfea075b2177dd9b0a82",
   "pins" : [
     {
       "identity" : "camera",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/veraposeidon/Camera.git",
+      "location" : "https://github.com/supersimple33/Camera.git",
       "state" : {
-        "branch" : "fix/sendable-protocol",
-        "revision" : "1ba0a2ed7314ee03b79c86c9fcba02af8d0b04a1"
+        "branch" : "feat/CustomCameraMedia",
+        "revision" : "15d648f8963265ee35f966276068b9db54639c1a"
       }
     },
     {
