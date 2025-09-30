@@ -4,7 +4,7 @@
 <dict>
 	<key>classNames</key>
 	<dict>
-		<key>ReceiptSplitUITests</key>
+		<key>RapidSplitUITests</key>
 		<dict>
 			<key>testLaunchPerformance()</key>
 			<dict>

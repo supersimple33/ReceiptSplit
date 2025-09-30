@@ -19,14 +19,14 @@
 			containerPortal = FE3209A32E6CE0B800A214CA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = FE3209AA2E6CE0B800A214CA;
-			remoteInfo = ReceiptSplit;
+			remoteInfo = RapidSplit;
 		};
 		FE3209C72E6CE0B900A214CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FE3209A32E6CE0B800A214CA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = FE3209AA2E6CE0B800A214CA;
-			remoteInfo = ReceiptSplit;
+			remoteInfo = RapidSplit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -50,7 +50,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FE3209CE2E6CE0B900A214CA /* Exceptions for "ReceiptSplit" folder in "RapidSplit" target */ = {
+		FE3209CE2E6CE0B900A214CA /* Exceptions for "RapidSplit" folder in "RapidSplit" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -60,22 +60,22 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		FE3209AD2E6CE0B800A214CA /* ReceiptSplit */ = {
+		FE3209AD2E6CE0B800A214CA /* RapidSplit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				FE3209CE2E6CE0B900A214CA /* Exceptions for "ReceiptSplit" folder in "RapidSplit" target */,
+				FE3209CE2E6CE0B900A214CA /* Exceptions for "RapidSplit" folder in "RapidSplit" target */,
 			);
-			path = ReceiptSplit;
+			path = RapidSplit;
 			sourceTree = "<group>";
 		};
-		FE3209BF2E6CE0B900A214CA /* ReceiptSplitTests */ = {
+		FE3209BF2E6CE0B900A214CA /* RapidSplitTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ReceiptSplitTests;
+			path = RapidSplitTests;
 			sourceTree = "<group>";
 		};
-		FE3209C92E6CE0B900A214CA /* ReceiptSplitUITests */ = {
+		FE3209C92E6CE0B900A214CA /* RapidSplitUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ReceiptSplitUITests;
+			path = RapidSplitUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -112,9 +112,9 @@
 		FE3209A22E6CE0B800A214CA = {
 			isa = PBXGroup;
 			children = (
-				FE3209AD2E6CE0B800A214CA /* ReceiptSplit */,
-				FE3209BF2E6CE0B900A214CA /* ReceiptSplitTests */,
-				FE3209C92E6CE0B900A214CA /* ReceiptSplitUITests */,
+				FE3209AD2E6CE0B800A214CA /* RapidSplit */,
+				FE3209BF2E6CE0B900A214CA /* RapidSplitTests */,
+				FE3209C92E6CE0B900A214CA /* RapidSplitUITests */,
 				FE3209AC2E6CE0B800A214CA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -146,7 +146,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				FE3209AD2E6CE0B800A214CA /* ReceiptSplit */,
+				FE3209AD2E6CE0B800A214CA /* RapidSplit */,
 			);
 			name = RapidSplit;
 			packageProductDependencies = (
@@ -155,7 +155,7 @@
 				FE232C4D2E75E86B004BBBB6 /* PhoneNumberKit */,
 				FE5261492E79CB0B00F406C8 /* MijickCamera */,
 			);
-			productName = ReceiptSplit;
+			productName = RapidSplit;
 			productReference = FE3209AB2E6CE0B800A214CA /* RapidSplit.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -173,12 +173,12 @@
 				FE3209BE2E6CE0B900A214CA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				FE3209BF2E6CE0B900A214CA /* ReceiptSplitTests */,
+				FE3209BF2E6CE0B900A214CA /* RapidSplitTests */,
 			);
 			name = RapidSplitTests;
 			packageProductDependencies = (
 			);
-			productName = ReceiptSplitTests;
+			productName = RapidSplitTests;
 			productReference = FE3209BC2E6CE0B900A214CA /* RapidSplitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -196,12 +196,12 @@
 				FE3209C82E6CE0B900A214CA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				FE3209C92E6CE0B900A214CA /* ReceiptSplitUITests */,
+				FE3209C92E6CE0B900A214CA /* RapidSplitUITests */,
 			);
 			name = RapidSplitUITests;
 			packageProductDependencies = (
 			);
-			productName = ReceiptSplitUITests;
+			productName = RapidSplitUITests;
 			productReference = FE3209C62E6CE0B900A214CA /* RapidSplitUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -322,13 +322,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ReceiptSplit/ReceiptSplit.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RapidSplit/RapidSplit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PTS9BGHVQ9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ReceiptSplit/Info.plist;
+				INFOPLIST_FILE = RapidSplit/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is needed to scan receipts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -340,7 +340,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.ReceiptSplit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.RapidSplit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -352,13 +352,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ReceiptSplit/ReceiptSplit.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RapidSplit/RapidSplit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PTS9BGHVQ9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ReceiptSplit/Info.plist;
+				INFOPLIST_FILE = RapidSplit/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is needed to scan receipts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -370,7 +370,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.ReceiptSplit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.RapidSplit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -514,7 +514,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.ReceiptSplitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.RapidSplitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -532,7 +532,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.ReceiptSplitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.RapidSplitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -549,11 +549,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.ReceiptSplitUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.RapidSplitUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ReceiptSplit;
+				TEST_TARGET_NAME = RapidSplit;
 			};
 			name = Debug;
 		};
@@ -566,11 +566,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.ReceiptSplitUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.addisonhanrattie.RapidSplitUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ReceiptSplit;
+				TEST_TARGET_NAME = RapidSplit;
 			};
 			name = Release;
 		};
