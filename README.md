@@ -2,14 +2,14 @@
 An open source app for splitting receipts, checks, and bills. Privacy first no external API or cloud calls; everything runs on device.
 
 ## Structure
-- ReceiptSplit
+- RapidSplit
   - Components (Miscellaneous UI components)
   - Schema (Database class definitions)
   - Screens (All top-level UI screens)
   - Services (Machine learning services) 
   - Utilities (All helpers)
-- ReceiptSplitTests
-- ReceiptSplitUITests
+- RapidSplitTests
+- RapidSplitUITests
 
 ## TODO / Backlog
 - [ ] Finish unit testing
