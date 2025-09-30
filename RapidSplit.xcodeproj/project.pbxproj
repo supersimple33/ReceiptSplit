@@ -44,18 +44,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FE3209AB2E6CE0B800A214CA /* ReceiptSplit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReceiptSplit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE3209BC2E6CE0B900A214CA /* ReceiptSplitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReceiptSplitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE3209C62E6CE0B900A214CA /* ReceiptSplitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReceiptSplitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE3209AB2E6CE0B800A214CA /* RapidSplit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RapidSplit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE3209BC2E6CE0B900A214CA /* RapidSplitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RapidSplitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE3209C62E6CE0B900A214CA /* RapidSplitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RapidSplitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FE3209CE2E6CE0B900A214CA /* Exceptions for "ReceiptSplit" folder in "ReceiptSplit" target */ = {
+		FE3209CE2E6CE0B900A214CA /* Exceptions for "ReceiptSplit" folder in "RapidSplit" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = FE3209AA2E6CE0B800A214CA /* ReceiptSplit */;
+			target = FE3209AA2E6CE0B800A214CA /* RapidSplit */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -63,7 +63,7 @@
 		FE3209AD2E6CE0B800A214CA /* ReceiptSplit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				FE3209CE2E6CE0B900A214CA /* Exceptions for "ReceiptSplit" folder in "ReceiptSplit" target */,
+				FE3209CE2E6CE0B900A214CA /* Exceptions for "ReceiptSplit" folder in "RapidSplit" target */,
 			);
 			path = ReceiptSplit;
 			sourceTree = "<group>";
@@ -122,9 +122,9 @@
 		FE3209AC2E6CE0B800A214CA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FE3209AB2E6CE0B800A214CA /* ReceiptSplit.app */,
-				FE3209BC2E6CE0B900A214CA /* ReceiptSplitTests.xctest */,
-				FE3209C62E6CE0B900A214CA /* ReceiptSplitUITests.xctest */,
+				FE3209AB2E6CE0B800A214CA /* RapidSplit.app */,
+				FE3209BC2E6CE0B900A214CA /* RapidSplitTests.xctest */,
+				FE3209C62E6CE0B900A214CA /* RapidSplitUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,9 +132,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FE3209AA2E6CE0B800A214CA /* ReceiptSplit */ = {
+		FE3209AA2E6CE0B800A214CA /* RapidSplit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE3209CF2E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "ReceiptSplit" */;
+			buildConfigurationList = FE3209CF2E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "RapidSplit" */;
 			buildPhases = (
 				FE3209A72E6CE0B800A214CA /* Sources */,
 				FE3209A82E6CE0B800A214CA /* Frameworks */,
@@ -148,7 +148,7 @@
 			fileSystemSynchronizedGroups = (
 				FE3209AD2E6CE0B800A214CA /* ReceiptSplit */,
 			);
-			name = ReceiptSplit;
+			name = RapidSplit;
 			packageProductDependencies = (
 				FE3209E32E6CE60B00A214CA /* MaterialUIKit */,
 				FED090A42E71D2F800CC3CC5 /* Tabler */,
@@ -156,12 +156,12 @@
 				FE5261492E79CB0B00F406C8 /* MijickCamera */,
 			);
 			productName = ReceiptSplit;
-			productReference = FE3209AB2E6CE0B800A214CA /* ReceiptSplit.app */;
+			productReference = FE3209AB2E6CE0B800A214CA /* RapidSplit.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FE3209BB2E6CE0B900A214CA /* ReceiptSplitTests */ = {
+		FE3209BB2E6CE0B900A214CA /* RapidSplitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE3209D42E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "ReceiptSplitTests" */;
+			buildConfigurationList = FE3209D42E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "RapidSplitTests" */;
 			buildPhases = (
 				FE3209B82E6CE0B900A214CA /* Sources */,
 				FE3209B92E6CE0B900A214CA /* Frameworks */,
@@ -175,16 +175,16 @@
 			fileSystemSynchronizedGroups = (
 				FE3209BF2E6CE0B900A214CA /* ReceiptSplitTests */,
 			);
-			name = ReceiptSplitTests;
+			name = RapidSplitTests;
 			packageProductDependencies = (
 			);
 			productName = ReceiptSplitTests;
-			productReference = FE3209BC2E6CE0B900A214CA /* ReceiptSplitTests.xctest */;
+			productReference = FE3209BC2E6CE0B900A214CA /* RapidSplitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		FE3209C52E6CE0B900A214CA /* ReceiptSplitUITests */ = {
+		FE3209C52E6CE0B900A214CA /* RapidSplitUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE3209D72E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "ReceiptSplitUITests" */;
+			buildConfigurationList = FE3209D72E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "RapidSplitUITests" */;
 			buildPhases = (
 				FE3209C22E6CE0B900A214CA /* Sources */,
 				FE3209C32E6CE0B900A214CA /* Frameworks */,
@@ -198,11 +198,11 @@
 			fileSystemSynchronizedGroups = (
 				FE3209C92E6CE0B900A214CA /* ReceiptSplitUITests */,
 			);
-			name = ReceiptSplitUITests;
+			name = RapidSplitUITests;
 			packageProductDependencies = (
 			);
 			productName = ReceiptSplitUITests;
-			productReference = FE3209C62E6CE0B900A214CA /* ReceiptSplitUITests.xctest */;
+			productReference = FE3209C62E6CE0B900A214CA /* RapidSplitUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -228,7 +228,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FE3209A62E6CE0B800A214CA /* Build configuration list for PBXProject "ReceiptSplit" */;
+			buildConfigurationList = FE3209A62E6CE0B800A214CA /* Build configuration list for PBXProject "RapidSplit" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -248,9 +248,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FE3209AA2E6CE0B800A214CA /* ReceiptSplit */,
-				FE3209BB2E6CE0B900A214CA /* ReceiptSplitTests */,
-				FE3209C52E6CE0B900A214CA /* ReceiptSplitUITests */,
+				FE3209AA2E6CE0B800A214CA /* RapidSplit */,
+				FE3209BB2E6CE0B900A214CA /* RapidSplitTests */,
+				FE3209C52E6CE0B900A214CA /* RapidSplitUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -306,12 +306,12 @@
 /* Begin PBXTargetDependency section */
 		FE3209BE2E6CE0B900A214CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FE3209AA2E6CE0B800A214CA /* ReceiptSplit */;
+			target = FE3209AA2E6CE0B800A214CA /* RapidSplit */;
 			targetProxy = FE3209BD2E6CE0B900A214CA /* PBXContainerItemProxy */;
 		};
 		FE3209C82E6CE0B900A214CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FE3209AA2E6CE0B800A214CA /* ReceiptSplit */;
+			target = FE3209AA2E6CE0B800A214CA /* RapidSplit */;
 			targetProxy = FE3209C72E6CE0B900A214CA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -518,7 +518,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReceiptSplit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReceiptSplit";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RapidSplit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RapidSplit";
 			};
 			name = Debug;
 		};
@@ -536,7 +536,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReceiptSplit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ReceiptSplit";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RapidSplit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RapidSplit";
 			};
 			name = Release;
 		};
@@ -577,7 +577,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FE3209A62E6CE0B800A214CA /* Build configuration list for PBXProject "ReceiptSplit" */ = {
+		FE3209A62E6CE0B800A214CA /* Build configuration list for PBXProject "RapidSplit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE3209D22E6CE0B900A214CA /* Debug */,
@@ -586,7 +586,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FE3209CF2E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "ReceiptSplit" */ = {
+		FE3209CF2E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "RapidSplit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE3209D02E6CE0B900A214CA /* Debug */,
@@ -595,7 +595,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FE3209D42E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "ReceiptSplitTests" */ = {
+		FE3209D42E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "RapidSplitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE3209D52E6CE0B900A214CA /* Debug */,
@@ -604,7 +604,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FE3209D72E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "ReceiptSplitUITests" */ = {
+		FE3209D72E6CE0B900A214CA /* Build configuration list for PBXNativeTarget "RapidSplitUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE3209D82E6CE0B900A214CA /* Debug */,
