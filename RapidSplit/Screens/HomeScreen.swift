@@ -14,18 +14,21 @@ struct HomeScreen: View {
     @Environment(Router.self) private var router
 
     var body: some View {
-        NavigationContainer {
+        Container {
             VStack(spacing: 16) {
                 ChecksTable(model, navigateToCheck: { check in
                     router.navigateTo(route: .details(check: check))
                 })
-                    .navigationContainerTopBar(title: "Receipts", backButtonHidden: true, style: .large)
-
+                Text("This app uses AI to identify categorize and price items. Always double check outputs before splitting.")
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
                 ActionButton("Split New Receipt", style: .filledStretched) {
                     router.navigateTo(route: .capture)
                 }
             }
-        }.task {
+        }
+        .navigationTitle("Receipts")
+        .task {
             let status = AVCaptureDevice.authorizationStatus(for: .video)
             if status == .notDetermined {
                 await AVCaptureDevice.requestAccess(for: .video)
